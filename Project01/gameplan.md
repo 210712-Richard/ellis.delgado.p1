@@ -27,16 +27,52 @@
 
 
 
-
-
-
-
 ## User Story
+** As a User, I want to log into my account
+** As a User, I want to logout of my account
+** As an employee, I want to submit a reimbursement requests
+** As an employee, I want to be able to submit any files needed 
+** 
 
 
+## What do we need to do?
 
-## How are we making it??
+1. Make users with different access levels
+2. Create database to hold user info / reimbursement requests
+3. Date and time management
+
+
+** Basically,** we have to pass a file up from employee all the way to BenCo. If anyone tries to access it before their turn, they should get a 403 error. Once the file is all the way at the top, it should get approved and the state of approved for the reimbursement should be set to true 
 
 
 
 ## General notes
+
+- we have different types of users who have different abilities
+	* Employee (Jubilee)
+		- create reimbursement 
+	* Direct Supervisor (Wolverine)
+		- approve or deny reimbursement
+			- if *denied* must say why
+		- can request addition info from employee
+		- has to send to department head unless IS department head as well
+		- if not completed in time frame, request auto approved
+		-must confirm that the presentation was satisfactory and presented 			to the appropriate parties
+	* Department Head (Jean Grey)
+		- approve or deny reimbursement
+		- can request addition info from employee or DS
+		- has to send to department head unless IS department head as well
+		- if not completed in time frame, request auto approved
+	* Benefits Coordinator (Xavier)
+		- MUST approve or deny reimbursement
+		- Can change amount
+			- must state why amount changed
+				- if exceeding, reimbursement must be marked as exceeding 					available funds for reporting purposes
+		- Must confirm if grade from employee is passing
+	
+	
+
+
+
+
+

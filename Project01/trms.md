@@ -33,5 +33,5 @@ If the BenCo changes the reimbursement amount, the Employee should be notified a
 ## 6	Grade/Presentation Upload
 Upon completion of the event, the employee should attach either the Grade or Presentation as appropriate.  After upload of a grade, the BenCo must confirm that the grade is passing.  After upload of a presentation, the direct manager must confirm that the presentation was satisfactory and presented to the appropriate parties.  Upon confirmation, the amount is awarded to the requestor.
 
-6.1	Business Rules
+## 6.1	Business Rules
 Only interested parties should be able to access the grades/presentations.  Interested parties include the requestor and approvers.  
