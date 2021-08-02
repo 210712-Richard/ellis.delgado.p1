@@ -22,11 +22,13 @@ public class User implements Serializable{
 	private String email;
 	private int employeeId;
 	private UserType userType;
+	private Long reimbursement;
 	private FileObject fileObject;
 	
 	public User() {
 		super();
 		this.userType = UserType.Employee;
+		this.reimbursement= 0L;
 //		this.fileObject = fileObject;
 	}
 	
@@ -76,12 +78,23 @@ public class User implements Serializable{
 		this.fileObject = fileObject;
 	}
 
+	public Long getReimbursement() {
+		return reimbursement;
+	}
+
+	public void setReimbursement(Long reimbursement) {
+		this.reimbursement = reimbursement;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + employeeId;
+		result = prime * result + ((fileObject == null) ? 0 : fileObject.hashCode());
+		result = prime * result + ((reimbursement == null) ? 0 : reimbursement.hashCode());
+		result = prime * result + ((userType == null) ? 0 : userType.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -102,6 +115,18 @@ public class User implements Serializable{
 			return false;
 		if (employeeId != other.employeeId)
 			return false;
+		if (fileObject == null) {
+			if (other.fileObject != null)
+				return false;
+		} else if (!fileObject.equals(other.fileObject))
+			return false;
+		if (reimbursement == null) {
+			if (other.reimbursement != null)
+				return false;
+		} else if (!reimbursement.equals(other.reimbursement))
+			return false;
+		if (userType != other.userType)
+			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -112,12 +137,11 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", email=" + email + ", employeeId=" + employeeId + ", getUsername()="
-				+ getUsername() + ", getEmail()=" + getEmail() + ", getEmployeeId()=" + getEmployeeId()
-				+ ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString()
-				+ "]";
+		return "User [username=" + username + ", email=" + email + ", employeeId=" + employeeId + ", userType="
+				+ userType + ", reimbursement=" + reimbursement + ", fileObject=" + fileObject + "]";
 	}
 
+	
 
 	
 }
