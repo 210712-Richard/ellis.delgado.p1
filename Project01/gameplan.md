@@ -69,6 +69,16 @@
 			- must state why amount changed
 				- if exceeding, reimbursement must be marked as exceeding 					available funds for reporting purposes
 		- Must confirm if grade from employee is passing
+		
+		
+## Okay, so what do we need to do today?
+* well, 
+	-  We finished creating the user object and the form object
+	- should we build the UserDAO
+		*the only thing about that is that im a little confused 			about the functionality of the app right now
+	- Or we could try and create a user databse?
+		* we probably need the DAO first 
+		
 	
 	
 
