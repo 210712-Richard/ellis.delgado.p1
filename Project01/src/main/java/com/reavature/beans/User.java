@@ -3,7 +3,11 @@ package com.reavature.beans;
 import java.io.Serializable;
 
 public class User implements Serializable{
-/*
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/*
  * What does do our users need?
  * 
  *	1. Name
@@ -22,8 +26,8 @@ public class User implements Serializable{
 	
 	public User() {
 		super();
-		this.userType = userType;
-		this.fileObject = fileObject;
+		this.userType = UserType.Employee;
+//		this.fileObject = fileObject;
 	}
 	
 	public User(String username, String email, int employeeId ) {
