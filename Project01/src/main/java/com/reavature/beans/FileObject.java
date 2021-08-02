@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class FileObject implements FileInt{
 
+	private static final long serialVersionUID = 1L;
 	public String filename;
 	public UUID fileId;
 	public FileType fileType;
@@ -20,42 +21,38 @@ public class FileObject implements FileInt{
 		this.fileUrl = fileUrl;
 	}
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return filename;
 	}
 
 	public void setName(String filename) {
-		// TODO Auto-generated method stub
+		this.filename = filename;
 		
 	}
 
 	public UUID getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return fileId;
 	}
 
 	public void setId(UUID fileId) {
-		// TODO Auto-generated method stub
+		this.fileId = fileId;
 		
 	}
 
 	public FileType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return fileType;
 	}
 
 	public void setType(FileType fileType) {
-		// TODO Auto-generated method stub
+		this.fileType = fileType;
 		
 	}
 
 	public String getUrl() {
-		// TODO Auto-generated method stub
-		return null;
+		return fileUrl;
 	}
 
 	public void setUrl(String fileUrl) {
-		// TODO Auto-generated method stub
+		this.fileUrl = fileUrl;
 		
 	}
 	@Override
