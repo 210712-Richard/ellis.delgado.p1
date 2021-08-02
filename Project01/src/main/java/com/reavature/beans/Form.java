@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Form implements FormInt{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public LocalDate date;
 	public LocalDateTime time;
 	public String description;

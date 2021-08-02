@@ -1,6 +1,8 @@
 package com.reavature.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User implements Serializable{
@@ -24,13 +26,14 @@ public class User implements Serializable{
 	private int employeeId;
 	private UserType userType;
 	private Long reimbursement;
-	private Form form;
+	private List<Form> forms;
 	
 	public User() {
 		super();
 		this.userType = UserType.Employee;
 		this.reimbursement= 0L;
 //		this.fileObject = fileObject;
+		this.forms = new ArrayList<Form>();
 	}
 	
 	public User(String username, String email, int employeeId ) {
@@ -71,12 +74,12 @@ public class User implements Serializable{
 		this.userType = userType;
 	}
 
-	public Form getForm() {
-		return form;
+	public List<Form> getForms() {
+		return forms;
 	}
 
-	public void setForm(Form form) {
-		this.form = form;
+	public void setForm(List<Form> forms) {
+		this.forms = forms;
 	}
 
 	public Long getReimbursement() {
@@ -89,7 +92,7 @@ public class User implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, employeeId, form, reimbursement, userType, username);
+		return Objects.hash(email, employeeId, forms, reimbursement, userType, username);
 	}
 
 	@Override
@@ -101,15 +104,15 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(email, other.email) && employeeId == other.employeeId && Objects.equals(form, other.form)
-				&& Objects.equals(reimbursement, other.reimbursement) && userType == other.userType
-				&& Objects.equals(username, other.username);
+		return Objects.equals(email, other.email) && employeeId == other.employeeId
+				&& Objects.equals(forms, other.forms) && Objects.equals(reimbursement, other.reimbursement)
+				&& userType == other.userType && Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", email=" + email + ", employeeId=" + employeeId + ", userType="
-				+ userType + ", reimbursement=" + reimbursement + ", form=" + form + "]";
+				+ userType + ", reimbursement=" + reimbursement + ", forms=" + forms + "]";
 	}
 
 	
