@@ -1,21 +1,34 @@
 package com.reavature.beans;
 
 import java.io.Serializable;
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 public interface FormInt extends Serializable{
-	String getName();
-	void setName(String name);
 	
-	UUID getId();
-	void setId(UUID id);
+	LocalDate getDate();
+	void setDate(LocalDate date);
 	
-	FileType getType();
-	void setType(FileType type);
+	LocalDateTime getTime();
+	void setTime(LocalDateTime time);
 	
-	String getUrl();
-	void setUrl(String url);
-
+	String getDescription();
+	void setDescription(String description);
+	
+	Long getCost();
+	void setCost(Long cost);
+	
+	String getGrade();
+	void setGrade(String grade);
+	
+	Event getEvent();
+	void setEvent(Event event);
+	
+	
 	FileObject getFile();
 	void setFile(FileObject file);
+	
+	Boolean getStatus();
+	void setStatus(Boolean status);
 }

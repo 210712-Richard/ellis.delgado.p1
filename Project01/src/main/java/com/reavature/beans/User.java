@@ -1,6 +1,7 @@
 package com.reavature.beans;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable{
 /**
@@ -23,7 +24,7 @@ public class User implements Serializable{
 	private int employeeId;
 	private UserType userType;
 	private Long reimbursement;
-	private FileObject fileObject;
+	private Form form;
 	
 	public User() {
 		super();
@@ -70,12 +71,12 @@ public class User implements Serializable{
 		this.userType = userType;
 	}
 
-	public FileObject getFileObject() {
-		return fileObject;
+	public Form getForm() {
+		return form;
 	}
 
-	public void setFileObject(FileObject fileObject) {
-		this.fileObject = fileObject;
+	public void setForm(Form form) {
+		this.form = form;
 	}
 
 	public Long getReimbursement() {
@@ -88,15 +89,7 @@ public class User implements Serializable{
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + employeeId;
-		result = prime * result + ((fileObject == null) ? 0 : fileObject.hashCode());
-		result = prime * result + ((reimbursement == null) ? 0 : reimbursement.hashCode());
-		result = prime * result + ((userType == null) ? 0 : userType.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		return result;
+		return Objects.hash(email, employeeId, form, reimbursement, userType, username);
 	}
 
 	@Override
@@ -108,39 +101,18 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (employeeId != other.employeeId)
-			return false;
-		if (fileObject == null) {
-			if (other.fileObject != null)
-				return false;
-		} else if (!fileObject.equals(other.fileObject))
-			return false;
-		if (reimbursement == null) {
-			if (other.reimbursement != null)
-				return false;
-		} else if (!reimbursement.equals(other.reimbursement))
-			return false;
-		if (userType != other.userType)
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
+		return Objects.equals(email, other.email) && employeeId == other.employeeId && Objects.equals(form, other.form)
+				&& Objects.equals(reimbursement, other.reimbursement) && userType == other.userType
+				&& Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", email=" + email + ", employeeId=" + employeeId + ", userType="
-				+ userType + ", reimbursement=" + reimbursement + ", fileObject=" + fileObject + "]";
+				+ userType + ", reimbursement=" + reimbursement + ", form=" + form + "]";
 	}
 
+	
 	
 
 	
