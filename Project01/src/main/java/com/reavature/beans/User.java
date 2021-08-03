@@ -11,7 +11,7 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	/*
- * What does do our users need?
+ * What do our users need?
  * 
  *	1. Name
  *	2. User Type

@@ -79,6 +79,14 @@
 	- Or we could try and create a user databse?
 		* we probably need the DAO first 
 		
+		
+*08/03*
+	Agenda
+		- Lets work on that UserDAO,
+		- Lets figure out if we need to create an object for
+			the reimbursements
+		- Lets see if we can get the User services started
+		
 	
 	
 
