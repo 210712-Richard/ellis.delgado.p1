@@ -78,7 +78,8 @@
 * well, 
 	-  We finished creating the user object and the form object
 	- should we build the UserDAO
-		*the only thing about that is that im a little confused 			about the functionality of the app right now
+		*the only thing about that is that im a little confused 			
+		about the functionality of the app right now
 	- Or we could try and create a user databse?
 		* we probably need the DAO first 
 		
@@ -89,6 +90,12 @@
 		- Lets figure out if we need to create an object for
 			the reimbursements
 		- Lets see if we can get the User services started
+		
+*08/04*
+	- lets get the reimbursements going
+	- lets upload a file to aws
+	- lets view said file
+	
 		
 	
 	

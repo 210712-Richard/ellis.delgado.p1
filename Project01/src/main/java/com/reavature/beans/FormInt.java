@@ -2,6 +2,7 @@ package com.reavature.beans;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.time.LocalDate;
 
 
@@ -31,4 +32,14 @@ public interface FormInt extends Serializable{
 	
 	Boolean getStatus();
 	void setStatus(Boolean status);
+	
+	Integer getTimeMissed();
+	
+	void setTimeMissed(Integer timeMissed);
+	
+	Boolean getUrgency();
+	void setUrgency(Boolean urgency);
+	
+	UUID getFormId();
+	void setFormId(UUID formId);
 }
