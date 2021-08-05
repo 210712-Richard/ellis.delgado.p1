@@ -26,19 +26,24 @@ public class User implements Serializable{
 	private String email;
 	private UUID employeeId;
 	private UserType userType;
-	private Long reimbursement;
+	private Long pending;
+	private Long approved;
 	private List<Form> forms;
 	private String supervisor;
 	private String departmentHead;
 	private String benCo;
+	private List<Inbox> inbox;
 	
 	public User() {
 		super();
 		
-		this.reimbursement= 0L;
+		this.approved = 0L;
+		this.pending = 0L;
 //		this.fileObject = fileObject;
 		this.forms = new ArrayList<Form>();
+		this.inbox = new ArrayList<Inbox>();
 	}
+
 	//Employee
 	public User(String username, String email, UUID employeeId, UserType usertype,
 			String supervisor, String departmentHead, String benCo ) {
@@ -57,6 +62,7 @@ public class User implements Serializable{
 		this.email = email;
 		this.employeeId= employeeId;
 		this.userType = UserType.Direct_Supervisor;
+		this.supervisor = null;
 		this.departmentHead = departmentHead;
 		this.benCo = benCo;
 	}
@@ -67,6 +73,8 @@ public class User implements Serializable{
 		this.email = email;
 		this.employeeId= employeeId;
 		this.userType = UserType.Department_Head;
+		this.supervisor = null;
+		this.departmentHead = null;
 		this.benCo = benCo;
 	}
 	//BenCo
@@ -75,6 +83,9 @@ public class User implements Serializable{
 		this.email = email;
 		this.employeeId= employeeId;
 		this.userType = UserType.Benefits_Coordinator;
+		this.supervisor = null;
+		this.departmentHead = null;
+		this.benCo = null;
 		
 	}
 	public String getUsername() {
@@ -100,6 +111,26 @@ public class User implements Serializable{
 	public void setEmployeeId(UUID employeeId) {
 		this.employeeId = employeeId;
 	}
+	public Long getPending() {
+		return pending;
+	}
+	public void setPending(Long pending) {
+		this.pending = pending;
+	}
+	public Long getApproved() {
+		return approved;
+	}
+	public void setApproved(Long approved) {
+		this.approved = approved;
+	}
+
+	public List<Inbox> getInbox() {
+		return inbox;
+	}
+	public void setInbox(List<Inbox> inbox) {
+		this.inbox = inbox;
+	}
+	
 
 	public UserType getUserType() {
 		return userType;
@@ -115,14 +146,6 @@ public class User implements Serializable{
 
 	public void setForm(List<Form> forms) {
 		this.forms = forms;
-	}
-
-	public Long getReimbursement() {
-		return reimbursement;
-	}
-
-	public void setReimbursement(Long reimbursement) {
-		this.reimbursement = reimbursement;
 	}
 
 	public String getSupervisor() {
@@ -143,12 +166,10 @@ public class User implements Serializable{
 	public void setBenCo(String benCo) {
 		this.benCo = benCo;
 	}
-	
-	
 	@Override
 	public int hashCode() {
-		return Objects.hash(benCo, departmentHead, email, employeeId, forms, reimbursement, supervisor, userType,
-				username);
+		return Objects.hash(approved, benCo, departmentHead, email, employeeId, forms, inbox, pending, supervisor,
+				userType, username);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -159,19 +180,22 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(benCo, other.benCo) && Objects.equals(departmentHead, other.departmentHead)
-				&& Objects.equals(email, other.email) && employeeId == other.employeeId
-				&& Objects.equals(forms, other.forms) && Objects.equals(reimbursement, other.reimbursement)
+		return Objects.equals(approved, other.approved) && Objects.equals(benCo, other.benCo)
+				&& Objects.equals(departmentHead, other.departmentHead) && Objects.equals(email, other.email)
+				&& Objects.equals(employeeId, other.employeeId) && Objects.equals(forms, other.forms)
+				&& Objects.equals(inbox, other.inbox) && Objects.equals(pending, other.pending)
 				&& Objects.equals(supervisor, other.supervisor) && userType == other.userType
 				&& Objects.equals(username, other.username);
 	}
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", email=" + email + ", employeeId=" + employeeId + ", userType="
-				+ userType + ", reimbursement=" + reimbursement + ", forms=" + forms + ", supervisor=" + supervisor
-				+ ", departmentHead=" + departmentHead + ", benCo=" + benCo + "]";
+				+ userType + ", pending=" + pending + ", approved=" + approved + ", forms=" + forms + ", supervisor="
+				+ supervisor + ", departmentHead=" + departmentHead + ", benCo=" + benCo + ", inbox=" + inbox + "]";
 	}
-
+	
+	
+	
 	
 
 	
