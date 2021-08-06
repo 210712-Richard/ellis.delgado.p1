@@ -13,7 +13,7 @@ public interface UserDAO {
 	User getUser(String username);
 	
 	void updateUser(User user);
-	
-	List<Form> getUserForms();
+
+	List<Form> getUserForms(String username);
 	
 }
