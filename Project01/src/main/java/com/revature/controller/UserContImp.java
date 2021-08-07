@@ -18,12 +18,25 @@ public class UserContImp implements UserController{
 		User user = ctx.bodyAsClass(User.class);
 		log.debug(user);
 		
+		if (user != null) {
+			ctx.sessionAttribute("loggedUser", user);
+			ctx.json(user);
+			return;
+		}
+		log.error("User failed to log in");
+		ctx.status(401);
 		
 	}
 
 	@Override
 	public void getForms(Context ctx) {
-		// TODO Auto-generated method stub
+		String username = ctx.pathParam("username");
+		User loggedUser = (User) ctx.sessionAttribute("loggedUser");
+		if(loggedUser == null || !loggedUser.getUsername().equals(username)) {
+			log.error(loggedUser+ "not authorized");
+			ctx.status(403);
+			return; 
+		}
 		
 	}
 
