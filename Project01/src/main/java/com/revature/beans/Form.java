@@ -1,4 +1,4 @@
-package com.reavature.beans;
+package com.revature.beans;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

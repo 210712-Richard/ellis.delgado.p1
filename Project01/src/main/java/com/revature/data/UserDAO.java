@@ -1,9 +1,9 @@
-package com.reavature.data;
+package com.revature.data;
 
 import java.util.List;
 
-import com.reavature.beans.Form;
-import com.reavature.beans.User;
+import com.revature.beans.Form;
+import com.revature.beans.User;
 
 public interface UserDAO {
 	void addUser(User user);

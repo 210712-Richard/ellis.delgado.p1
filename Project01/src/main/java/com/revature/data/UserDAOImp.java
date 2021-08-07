@@ -1,4 +1,4 @@
-package com.reavature.data;
+package com.revature.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,9 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import com.datastax.oss.driver.api.core.cql.SimpleStatementBuilder;
-import com.reavature.beans.Form;
-import com.reavature.beans.User;
-import com.reavature.beans.UserType;
+import com.revature.beans.Form;
+import com.revature.beans.User;
+import com.revature.beans.UserType;
 import com.revature.util.CassandraUtil;
 
 
@@ -114,8 +114,8 @@ public class UserDAOImp implements UserDAO{
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query).setSerialConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStatement = session.prepare(simpStatement)
 				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType(), 
-						user.getPending(), user.getApproved(), user.getForms(), user.getSupervisor(),
-						user.getDepartmentHead(), user.getBenCo(), user.getInbox());
+						user.getPending(), user.getApproved(), forms, user.getSupervisor(),
+						user.getDepartmentHead(), user.getBenCo(), inbox);
 		session.execute(boundStatement);
 	}
 
