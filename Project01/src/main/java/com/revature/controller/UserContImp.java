@@ -4,12 +4,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.revature.beans.User;
+import com.revature.factory.BeanFactory;
+import com.revature.service.UserService;
+import com.revature.service.UserServiceImp;
 
 import io.javalin.http.Context;
 
 public class UserContImp implements UserController{
 
 	private static Logger log = LogManager.getLogger(UserContImp.class);
+	private UserService userSer = (UserService) BeanFactory.getFactory().get(UserService.class, UserServiceImp.class);
 	
 	@Override
 	public void login(Context ctx) {
@@ -48,8 +52,20 @@ public class UserContImp implements UserController{
 
 	@Override
 	public void logout(Context ctx) {
-		// TODO Auto-generated method stub
+		ctx.req.getSession().invalidate();
+		ctx.status(204);
 		
+	}
+
+	@Override
+	public void register(Context ctx) {
+		User user = ctx.bodyAsClass(User.class);
+		
+		User newUser = userSer.register(user.getUsername(), user.getEmail(),
+				user.getUserType().toString(), user.getSupervisor(), user.getDepartmentHead(), user.getBenCo());
+		ctx.status(201);
+		ctx.json(newUser);
+	
 	}
 
 }
