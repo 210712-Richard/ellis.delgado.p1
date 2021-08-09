@@ -9,7 +9,7 @@ public class DatabaseCreator {
 	public static UserDAO userDao = new UserDAOImp();
 	
 	public static void dropTables() {
-		StringBuilder stringBuild = new StringBuilder("DROP TABLE IF EXISTS User,");
+		StringBuilder stringBuild = new StringBuilder("DROP TABLE IF EXISTS User;");
 		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 		
 	}
