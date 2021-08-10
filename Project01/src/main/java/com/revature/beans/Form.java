@@ -11,14 +11,14 @@ public class Form implements FormInt{
 	 */
 	private static final long serialVersionUID = 1L;
 	public UUID formId;
-	public User employee;
+	public String employee;
 	public LocalDate date;
 	public LocalDateTime time;
 	public String description;
 	public Long cost;
 	public ReimbursementType type;
 	public String grade;
-	public Event event;
+	public EventOp event;
 	
 	//Optional stuff
 	public FileObject file;
@@ -29,9 +29,9 @@ public class Form implements FormInt{
 		super();
 		this.cost=0L;
 	}
-	public Form(UUID formId, User employee, LocalDate date, 
+	public Form(UUID formId, String employee, LocalDate date, 
 			LocalDateTime time, String description, 
-			Long Cost, ReimbursementType type, String grade, Event event, FileObject file, 
+			Long Cost, ReimbursementType type, String grade, EventOp event, FileObject file, 
 			Boolean status, Integer timeMissed, Boolean urgency) {
 		this.formId = formId;
 		this.employee = employee;
@@ -54,10 +54,10 @@ public class Form implements FormInt{
 		this.date = date;
 	}
 	
-	public User getEmployee() {
+	public String getEmployee() {
 		return employee;
 	}
-	public void setEmployee(User employee) {
+	public void setEmployee(String employee) {
 		this.employee = employee;
 	}
 	public String getDescription() {
@@ -78,10 +78,10 @@ public class Form implements FormInt{
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-	public Event getEvent() {
+	public EventOp getEvent() {
 		return event;
 	}
-	public void setEvent(Event event) {
+	public void setEvent(EventOp event) {
 		this.event = event;
 	}
 	public FileObject getFile() {

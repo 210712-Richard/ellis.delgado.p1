@@ -23,8 +23,8 @@ public interface FormInt extends Serializable{
 	String getGrade();
 	void setGrade(String grade);
 	
-	Event getEvent();
-	void setEvent(Event event);
+	EventOp getEvent();
+	void setEvent(EventOp event);
 	
 	
 	FileObject getFile();

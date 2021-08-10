@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Event implements Serializable{
+public class EventOp implements Serializable{
 	/**
 	 * 
 	 */
@@ -12,11 +12,11 @@ public class Event implements Serializable{
 	LocalDate startDate;
 	EventType type;
 	
-	public Event() {
+	public EventOp() {
 		super();
 		
 	}
-	public Event(LocalDate startDate, EventType type) {
+	public EventOp(LocalDate startDate, EventType type) {
 		this.startDate= startDate;
 		this.type = type;
 	}
@@ -44,12 +44,12 @@ public class Event implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Event other = (Event) obj;
+		EventOp other = (EventOp) obj;
 		return Objects.equals(startDate, other.startDate) && type == other.type;
 	}
 	@Override
 	public String toString() {
-		return "Event [startDate=" + startDate + ", type=" + type + "]";
+		return "EventOp [startDate=" + startDate + ", type=" + type + "]";
 	}
 	
 }

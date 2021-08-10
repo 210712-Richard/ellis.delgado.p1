@@ -2,7 +2,7 @@ package com.revature.data;
 
 import java.util.List;
 
-import com.revature.beans.Form;
+//import com.revature.beans.Form;
 import com.revature.beans.User;
 
 public interface UserDAO {
@@ -14,6 +14,6 @@ public interface UserDAO {
 	
 	void updateUser(User user);
 
-	List<Form> getUserForms(String username);
+//	List<Form> getUserForms(String username);
 	
 }
