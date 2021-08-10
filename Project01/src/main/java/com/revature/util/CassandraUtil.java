@@ -23,6 +23,7 @@ public class CassandraUtil {
 						.withConfigLoader(loader)
 						.withKeyspace("p1_keyspace")
 						.build();
+				log.trace("Session established;");
 				
 			}catch(Exception e){
 				log.error("Build unsuccessful"+ e);
