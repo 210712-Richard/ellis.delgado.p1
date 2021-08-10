@@ -99,7 +99,7 @@ public class UserDAOImp implements UserDAO{
 	@Override
 	public void updateUser(User user) {
 		String query = "Update user set email = ?, employeeId = ?, userType = ?, pending = ?, approved = ?, forms = ?, supervisor = ?, departmentHead = ?, benCo = ?, inbox = ? where username=?";
-		List<UUID> forms = user.getForms()
+		List<UUID> forms = formDAO.getForms()
 				.stream()
 				.filter(f -> f!=null)
 				.map(f -> f.getFormId())
@@ -121,7 +121,7 @@ public class UserDAOImp implements UserDAO{
 
 	@Override
 	public List<Form> getUserForms(String username) {
-		String query = "Select inventory from user where username = ?";
+		String query = "Select form from user where username = ?";
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query).build();
 		BoundStatement boundStatement = session.prepare(simpStatement).bind(username);
 		
