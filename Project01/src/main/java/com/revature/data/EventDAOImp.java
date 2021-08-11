@@ -42,6 +42,8 @@ public class EventDAOImp implements EventDAO{
 		e.setEventId(row.getUuid("eventId"));
 		e.setStartDate(row.getLocalDate("startDate"));
 		e.setType(EventType.valueOf(row.getString("type")));
+		e.setTitle(row.getString("title"));
+		e.setDescription(row.getString("description"));
 		
 		log.trace("Event retrieved");
 		return e; 
@@ -50,11 +52,13 @@ public class EventDAOImp implements EventDAO{
 
 	@Override
 	public void updateEvent(EventOp event) {
-		String query = "update event_db set startDate = ?, type = ?, where eventId = ?;";
+		String query = "update event_db set startDate = ?, type = ?, "
+				+ "title = ?, description = ? where eventId = ?;";
 		SimpleStatement simpState = new SimpleStatementBuilder(query)
 				.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)
-				.bind(event.getEventId(), event.getStartDate(), event.getType());
+				.bind(event.getEventId(), event.getStartDate(), event.getType(),
+						event.getTitle(), event.getDescription());
 		session.execute(boundStat);
 	}
 
@@ -71,6 +75,8 @@ public class EventDAOImp implements EventDAO{
 			e.setEventId(row.getUuid("eventId"));
 			e.setStartDate(row.getLocalDate("startDate"));
 			e.setType(EventType.valueOf(row.getString("type")));
+			e.setTitle(row.getString("title"));
+			e.setDescription(row.getString("description"));
 			
 			events.add(e);
 		});
@@ -92,16 +98,42 @@ public class EventDAOImp implements EventDAO{
 
 	@Override
 	public UUID	addEvent(EventOp event) {
-		String query = "Insert into event_db (eventId, startDate, type)"
-				+ "values (?, ?, ?);";
+		String query = "Insert into event_db (eventId, startDate, type, title, description)"
+				+ "values (?, ?, ?, ?, ?);";
 		UUID eventId = UUID.randomUUID();
 		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)
-				.bind (eventId, event.getStartDate(), event.getType());
+				.bind (eventId, event.getStartDate(), event.getType(),
+						event.getTitle(), event.getDescription());
 		session.execute(boundStat);
 		
 		return eventId;
 		
+	}
+
+	@Override
+	public EventOp getEventbyTitle(String title) {
+String query = "Select * from event_db where title = ?";
+		
+		BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query)
+				.build()).bind(title);
+		
+		ResultSet result = session.execute(boundStat);
+		
+		Row row = result.one();
+		if (row == null) {
+			log.error("row returned null");
+			return null;
+		}
+		EventOp e = new EventOp();
+		e.setEventId(row.getUuid("eventId"));
+		e.setStartDate(row.getLocalDate("startDate"));
+		e.setType(EventType.valueOf(row.getString("type")));
+		e.setTitle(row.getString("title"));
+		e.setDescription(row.getString("description"));
+		
+		log.trace("Event retrieved");
+		return e; 
 	}
 
 }

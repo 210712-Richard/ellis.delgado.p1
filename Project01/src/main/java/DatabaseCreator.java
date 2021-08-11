@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.revature.beans.*;
+import com.revature.data.EventDAO;
+import com.revature.data.EventDAOImp;
 import com.revature.data.FormDAO;
 import com.revature.data.FormDAOImp;
 import com.revature.data.InboxDAO;
@@ -18,6 +20,7 @@ public class DatabaseCreator {
 	public static UserDAO userDao = new UserDAOImp();
 	public static FormDAO formDao = new FormDAOImp();
 	public static InboxDAO inboxDAO = new InboxDAOImp();
+	public static EventDAO eventDAO = new EventDAOImp();
 	
 	public static void dropTables() {
 		StringBuilder stringBuild = new StringBuilder("DROP TABLE IF EXISTS user;");
@@ -82,9 +85,9 @@ public class DatabaseCreator {
 		UUID formId = UUID.randomUUID();
 		LocalDate date = LocalDate.of(2021, 04, 12);
 		LocalDateTime time = LocalDateTime.now();
-//		EventOp event = EventOp.
+		EventOp event = eventDAO.getEventbyTitle("exampleCert");
 
-		Form form = new Form(formId, "Logan", date, time, "Example", 500L, "B",   );
+		Form form = new Form(formId, "Logan", date, time, "Example", 500L, "B", event,   );
 		
 	}
 

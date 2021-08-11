@@ -14,15 +14,19 @@ public class EventOp implements Serializable{
 	UUID eventId;
 	LocalDate startDate;
 	EventType type;
+	String title; 
+	String description;
 	
 	public EventOp() {
 		super();
 		
 	}
-	public EventOp(UUID eventId, LocalDate startDate, EventType type) {
+	public EventOp(UUID eventId, LocalDate startDate, EventType type, String title, String description) {
 		this.eventId = eventId;
 		this.startDate= startDate;
 		this.type = type;
+		this.title = title;
+		this.description = description;
 	}
 	
 	public UUID getEventId() {
@@ -43,9 +47,21 @@ public class EventOp implements Serializable{
 	public void setType(EventType type) {
 		this.type = type;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(eventId, startDate, type);
+		return Objects.hash(description, eventId, startDate, title, type);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -56,13 +72,16 @@ public class EventOp implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		EventOp other = (EventOp) obj;
-		return Objects.equals(eventId, other.eventId) && Objects.equals(startDate, other.startDate)
+		return Objects.equals(description, other.description) && Objects.equals(eventId, other.eventId)
+				&& Objects.equals(startDate, other.startDate) && Objects.equals(title, other.title)
 				&& type == other.type;
 	}
 	@Override
 	public String toString() {
-		return "EventOp [eventId=" + eventId + ", startDate=" + startDate + ", type=" + type + "]";
+		return "EventOp [eventId=" + eventId + ", startDate=" + startDate + ", type=" + type + ", title=" + title
+				+ ", description=" + description + "]";
 	}
+	
 
 	
 	

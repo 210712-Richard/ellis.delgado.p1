@@ -11,6 +11,8 @@ public interface EventDAO {
 
 	EventOp getEventbyId(UUID eventId);
 	
+	EventOp getEventbyTitle(String title);
+	
 	UUID addEvent(EventOp event);
 	
 	public void updateEvent(EventOp event);
