@@ -1,13 +1,17 @@
 package com.revature.data;
 
+
 import java.util.List;
 import java.util.UUID;
 
 import com.revature.beans.EventOp;
 
+
 public interface EventDAO {
 
 	EventOp getEventbyId(UUID eventId);
+	
+	UUID addEvent(EventOp event);
 	
 	public void updateEvent(EventOp event);
 	

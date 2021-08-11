@@ -15,7 +15,6 @@ import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import com.datastax.oss.driver.api.core.cql.SimpleStatementBuilder;
 
 import com.revature.beans.Form;
-import com.revature.beans.ReimbursementType;
 import com.revature.beans.Status;
 import com.revature.util.CassandraUtil;
 //import com.revature.beans.*;
@@ -84,7 +83,7 @@ public class FormDAOImp implements FormDAO{
 	String query = "Delete from form_db where formId = ?";
 	
 	BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query)
-			.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build()).bind(form);
+			.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build()).bind(form.getFormId());
 	session.execute(boundStat);
 		
 	}
