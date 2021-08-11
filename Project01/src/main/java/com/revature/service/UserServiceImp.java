@@ -5,11 +5,14 @@ import java.util.List;
 import com.revature.beans.Form;
 import com.revature.beans.User;
 import com.revature.beans.UserType;
+import com.revature.data.FormDAO;
+import com.revature.data.FormDAOImp;
 import com.revature.data.UserDAO;
 import com.revature.data.UserDAOImp;
 
 public class UserServiceImp implements UserService{
 	public UserDAO userDao = new UserDAOImp();
+	public static FormDAO formDao = new FormDAOImp();
 	
 	
 	@Override
@@ -36,8 +39,7 @@ public class UserServiceImp implements UserService{
 	public List<Form> getForms(User user) {
 		String username = user.getUsername();
 		
-		List<Form> userForms = userDao.getUserForms(username);
-		
+		List<Form> userForms = formDao.getUserForms(username);		
 		return userForms;
 	}
 
