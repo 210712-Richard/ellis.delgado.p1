@@ -31,7 +31,8 @@ public class FormDAOImp implements FormDAO{
 	public List<Form> getUserForms(String employee) {
 		List<Form> forms = new ArrayList<Form>();
 		String query = "Select formId, employee, date, time, description, cost,"
-				+ "type, grade, event, file, status, timeMissed, urgency from form_db where employee = ?";
+//				+ "type, "
+				+ "grade, event, file, status, timeMissed, urgency from form_db where employee = ?";
 		
 		BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query).build()).bind(employee);
 		ResultSet result = session.execute(boundStat);
@@ -43,7 +44,7 @@ public class FormDAOImp implements FormDAO{
 			f.setDate(row.getLocalDate("date"));
 			f.setDescription(row.getString("description"));
 			f.setCost(row.getLong("cost"));
-			f.setType(ReimbursementType.valueOf(row.getString("type")));
+//			f.setType(ReimbursementType.valueOf(row.getString("type")));
 			f.setGrade(row.getString("grade"));
 			f.setEvent(null);
 			f.setFile(null);
@@ -91,13 +92,15 @@ public class FormDAOImp implements FormDAO{
 	@Override
 	public UUID addForm(Form form) {
 		String query = "Insert into form_db (formId, employee, date, time, description, cost, "
-		+ "type, grade, event, file, status, timeMissed, urgency) values  (?, ?, ? ,? ?, ? ,? ,?,?,?,?,?,?);";
+//		+ "type, "
+		+ "grade, event, file, status, timeMissed, urgency) values  (?, ?, ? ,? ?, ? ,? ,?,?,?,?,?,?);";
 	
 		UUID formId = UUID.randomUUID();
 		
 		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)
-				.bind(formId, form.getEmployee(), form.getDate(), form.getTime(), form.getCost(), form.getType(), 
+				.bind(formId, form.getEmployee(), form.getDate(), form.getTime(), form.getCost(), 
+//						form.getType(), 
 						form.getGrade(), form.getEvent(), form.getFile(), form.getStatus(), form.getTimeMissed(), form.getUrgency() );
 		session.execute(boundStat);
 		

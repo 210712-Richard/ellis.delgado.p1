@@ -1,6 +1,9 @@
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import com.revature.beans.*;
 import com.revature.data.FormDAO;
@@ -26,7 +29,7 @@ public class DatabaseCreator {
 		//user
 		StringBuilder stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS User (")
 				.append("username text PRIMARY KEY, email text, employeeId bigint, ")
-				.append("userType text, reimbursement, forms list<forms>, supervisor text, departmentHead text, benCo text, inbox list<Inbox>);");
+				.append("userType text, reimbursement bigint, forms list<forms>, supervisor text, departmentHead text, benCo text, inbox list<Inbox>);");
 		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 		
 		//form_db
@@ -64,13 +67,25 @@ public class DatabaseCreator {
 		userDao.addUser(user3);
 		
 
-		User user4 = new User("Logan", "wolverine@gmail.com",  null, null, null, null, null);
+		User user4 = new User("Logan", "lhowlett@gmail.com",  null, null, null, null, null);
 		user4.setUserType(UserType.Employee);
 		List<Form> form3 = formDao.getUserForms(user.getUsername());
 		formDao.addForm((Form) form3);
 		List<Inbox> inbox3 = inboxDAO.getInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox3);
 		userDao.addUser(user4);
+	}
+	
+	public static void populateFormTable() {
+		
+		
+		UUID formId = UUID.randomUUID();
+		LocalDate date = LocalDate.of(2021, 04, 12);
+		LocalDateTime time = LocalDateTime.now();
+//		EventOp event = EventOp.
+
+		Form form = new Form(formId, "Logan", date, time, "Example", 500L, "B",   );
+		
 	}
 
 }

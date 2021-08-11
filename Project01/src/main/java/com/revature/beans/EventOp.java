@@ -3,12 +3,15 @@ package com.revature.beans;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 public class EventOp implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	UUID eventId;
 	LocalDate startDate;
 	EventType type;
 	
@@ -16,9 +19,17 @@ public class EventOp implements Serializable{
 		super();
 		
 	}
-	public EventOp(LocalDate startDate, EventType type) {
+	public EventOp(UUID eventId, LocalDate startDate, EventType type) {
+		this.eventId = eventId;
 		this.startDate= startDate;
 		this.type = type;
+	}
+	
+	public UUID getEventId() {
+		return eventId;
+	}
+	public void setEventId(UUID eventId) {
+		this.eventId = eventId;
 	}
 	public LocalDate getStartDate() {
 		return startDate;
@@ -34,7 +45,7 @@ public class EventOp implements Serializable{
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(startDate, type);
+		return Objects.hash(eventId, startDate, type);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -45,11 +56,14 @@ public class EventOp implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		EventOp other = (EventOp) obj;
-		return Objects.equals(startDate, other.startDate) && type == other.type;
+		return Objects.equals(eventId, other.eventId) && Objects.equals(startDate, other.startDate)
+				&& type == other.type;
 	}
 	@Override
 	public String toString() {
-		return "EventOp [startDate=" + startDate + ", type=" + type + "]";
+		return "EventOp [eventId=" + eventId + ", startDate=" + startDate + ", type=" + type + "]";
 	}
+
+	
 	
 }

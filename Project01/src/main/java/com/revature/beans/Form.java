@@ -16,7 +16,7 @@ public class Form implements FormInt{
 	public LocalDateTime time;
 	public String description;
 	public Long cost;
-	public ReimbursementType type;
+//	public ReimbursementType type;
 	public String grade;
 	public EventOp event;
 	
@@ -31,14 +31,14 @@ public class Form implements FormInt{
 	}
 	public Form(UUID formId, String employee, LocalDate date, 
 			LocalDateTime time, String description, 
-			Long Cost, ReimbursementType type, String grade, EventOp event, FileObject file, 
+			Long Cost, String grade, EventOp event, FileObject file, 
 			Status status, Integer timeMissed, Boolean urgency) {
 		this.formId = formId;
 		this.employee = employee;
 		this.date = date;
 		this.time = time;
 		this.description = description;
-		this.type = ReimbursementType.UNIVERSITY;
+//		this.type = ReimbursementType.UNIVERSITY;
 		this.grade = grade;
 		this.event= event;
 		this.file=file;
@@ -121,17 +121,10 @@ public class Form implements FormInt{
 	public void setFormId(UUID formId) {
 		this.formId = formId;
 	}
-	
-	public ReimbursementType getType() {
-		return type;
-	}
-	public void setType(ReimbursementType type) {
-		this.type = type;
-	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(cost, date, description, employee, event, file, formId, grade, status, time, timeMissed,
-				type, urgency);
+				urgency);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -147,15 +140,22 @@ public class Form implements FormInt{
 				&& Objects.equals(event, other.event) && Objects.equals(file, other.file)
 				&& Objects.equals(formId, other.formId) && Objects.equals(grade, other.grade) && status == other.status
 				&& Objects.equals(time, other.time) && Objects.equals(timeMissed, other.timeMissed)
-				&& type == other.type && Objects.equals(urgency, other.urgency);
+				&& Objects.equals(urgency, other.urgency);
 	}
 	@Override
 	public String toString() {
 		return "Form [formId=" + formId + ", employee=" + employee + ", date=" + date + ", time=" + time
-				+ ", description=" + description + ", cost=" + cost + ", type=" + type + ", grade=" + grade + ", event="
-				+ event + ", file=" + file + ", status=" + status + ", timeMissed=" + timeMissed + ", urgency="
-				+ urgency + "]";
+				+ ", description=" + description + ", cost=" + cost + ", grade=" + grade + ", event=" + event
+				+ ", file=" + file + ", status=" + status + ", timeMissed=" + timeMissed + ", urgency=" + urgency + "]";
 	}
+	
+//	public ReimbursementType getType() {
+//		return type;
+//	}
+//	public void setType(ReimbursementType type) {
+//		this.type = type;
+//	}
+	
 	
 	
 	
