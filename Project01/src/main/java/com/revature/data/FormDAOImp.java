@@ -16,6 +16,7 @@ import com.datastax.oss.driver.api.core.cql.SimpleStatementBuilder;
 
 import com.revature.beans.Form;
 import com.revature.beans.ReimbursementType;
+import com.revature.beans.Status;
 import com.revature.util.CassandraUtil;
 //import com.revature.beans.*;
 
@@ -46,7 +47,7 @@ public class FormDAOImp implements FormDAO{
 			f.setGrade(row.getString("grade"));
 			f.setEvent(null);
 			f.setFile(null);
-			f.setStatus(row.getBoolean("status"));
+			f.setStatus(Status.valueOf(row.getString("status")));
 			f.setTimeMissed(row.getInt("timeMissed"));
 			f.setUrgency(row.getBoolean("urgency"));
 		

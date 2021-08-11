@@ -30,8 +30,8 @@ public interface FormInt extends Serializable{
 	FileObject getFile();
 	void setFile(FileObject file);
 	
-	Boolean getStatus();
-	void setStatus(Boolean status);
+	Status getStatus();
+	void setStatus(Status status);
 	
 	Integer getTimeMissed();
 	

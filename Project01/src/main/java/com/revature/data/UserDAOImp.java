@@ -39,7 +39,7 @@ public class UserDAOImp implements UserDAO{
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query).setSerialConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStatement = session.prepare(simpStatement)
 				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType(), 
-						user.getPending(), user.getApproved(), 
+						user.getReimbursement(), 
 //						user.getForms(),
 						user.getSupervisor(),
 						user.getDepartmentHead(), user.getBenCo(), user.getInbox());
@@ -62,8 +62,7 @@ public class UserDAOImp implements UserDAO{
 			user.setEmail(row.getString("email"));
 			user.setEmployeeId(row.getUuid("employeeId"));
 			user.setUserType(UserType.valueOf(row.getString("userType")));
-			user.setPending(row.getLong("pending"));
-			user.setApproved(row.getLong("approved"));
+			user.setReimbursement(row.getLong("reimbursement"));
 //			user.setForm(getUserForms("username"));
 			user.setSupervisor(row.getString("supervisor"));
 			user.setDepartmentHead(row.getString("departmentHead"));
@@ -92,8 +91,7 @@ public class UserDAOImp implements UserDAO{
 		user.setEmail(row.getString("email"));
 		user.setEmployeeId(row.getUuid("employeeId"));
 		user.setUserType(UserType.valueOf(row.getString("userType")));
-		user.setPending(row.getLong("pending"));
-		user.setApproved(row.getLong("approved"));
+		user.setReimbursement(row.getLong("reimbursement"));
 //		user.setForm(getUserForms(username));
 		user.setSupervisor(row.getString("supervisor"));
 		user.setDepartmentHead(row.getString("departmentHead"));
@@ -122,7 +120,7 @@ public class UserDAOImp implements UserDAO{
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query).setSerialConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStatement = session.prepare(simpStatement)
 				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType(), 
-						user.getPending(), user.getApproved(), 
+						user.getReimbursement(), 
 //						forms, 
 						user.getSupervisor(),
 						user.getDepartmentHead(), user.getBenCo(), inbox);

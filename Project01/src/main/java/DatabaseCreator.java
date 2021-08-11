@@ -26,11 +26,15 @@ public class DatabaseCreator {
 		//user
 		StringBuilder stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS User (")
 				.append("username text PRIMARY KEY, email text, employeeId bigint, ")
-				.append("userType text, pending bigint, approved bigint, forms list<forms>, supervisor text, departmentHead text, benCo text, inbox list<Inbox>);");
+				.append("userType text, reimbursement, forms list<forms>, supervisor text, departmentHead text, benCo text, inbox list<Inbox>);");
 		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 		
 		//form_db
-		stringBuild = new StringBuilder("");
+		stringBuild = new StringBuilder("CREATE TABLE IF NOT EXIST form_db")
+			.append("formId bigint PRIMARY KEY, employee text, date date, time date,")
+			.append("description text, type text, grade text, event text, file text,")
+			.append("status text, timeMissed bigint, urgency text;");
+		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 	}
 	
 	public static void populateUserTable() {

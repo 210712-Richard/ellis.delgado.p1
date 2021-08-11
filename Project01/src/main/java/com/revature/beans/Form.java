@@ -22,7 +22,7 @@ public class Form implements FormInt{
 	
 	//Optional stuff
 	public FileObject file;
-	public Boolean status;
+	public Status status;
 	public Integer timeMissed;
 	public Boolean urgency;
 	public Form() {
@@ -32,7 +32,7 @@ public class Form implements FormInt{
 	public Form(UUID formId, String employee, LocalDate date, 
 			LocalDateTime time, String description, 
 			Long Cost, ReimbursementType type, String grade, EventOp event, FileObject file, 
-			Boolean status, Integer timeMissed, Boolean urgency) {
+			Status status, Integer timeMissed, Boolean urgency) {
 		this.formId = formId;
 		this.employee = employee;
 		this.date = date;
@@ -90,10 +90,10 @@ public class Form implements FormInt{
 	public void setFile(FileObject file) {
 		this.file = file;
 	}
-	public Boolean getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	public LocalDateTime getTime() {
@@ -145,10 +145,9 @@ public class Form implements FormInt{
 		return Objects.equals(cost, other.cost) && Objects.equals(date, other.date)
 				&& Objects.equals(description, other.description) && Objects.equals(employee, other.employee)
 				&& Objects.equals(event, other.event) && Objects.equals(file, other.file)
-				&& Objects.equals(formId, other.formId) && Objects.equals(grade, other.grade)
-				&& Objects.equals(status, other.status) && Objects.equals(time, other.time)
-				&& Objects.equals(timeMissed, other.timeMissed) && type == other.type
-				&& Objects.equals(urgency, other.urgency);
+				&& Objects.equals(formId, other.formId) && Objects.equals(grade, other.grade) && status == other.status
+				&& Objects.equals(time, other.time) && Objects.equals(timeMissed, other.timeMissed)
+				&& type == other.type && Objects.equals(urgency, other.urgency);
 	}
 	@Override
 	public String toString() {

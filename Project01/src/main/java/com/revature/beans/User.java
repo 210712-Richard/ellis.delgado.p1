@@ -26,8 +26,7 @@ public class User implements Serializable{
 	private String email;
 	private UUID employeeId;
 	private UserType userType;
-	private Long pending;
-	private Long approved;
+	private Long reimbursement;
 	private String supervisor;
 	private String departmentHead;
 	private String benCo;
@@ -36,8 +35,7 @@ public class User implements Serializable{
 	public User() {
 		super();
 		
-		this.approved = 0L;
-		this.pending = 0L;
+		this.reimbursement= 0L;
 //		this.fileObject = fileObject;
 		this.inbox = new ArrayList<Inbox>();
 	}
@@ -109,18 +107,7 @@ public class User implements Serializable{
 	public void setEmployeeId(UUID employeeId) {
 		this.employeeId = employeeId;
 	}
-	public Long getPending() {
-		return pending;
-	}
-	public void setPending(Long pending) {
-		this.pending = pending;
-	}
-	public Long getApproved() {
-		return approved;
-	}
-	public void setApproved(Long approved) {
-		this.approved = approved;
-	}
+	
 
 	public List<Inbox> getInbox() {
 		return inbox;
@@ -157,9 +144,17 @@ public class User implements Serializable{
 		this.benCo = benCo;
 	}
 
+	public Long getReimbursement() {
+		return reimbursement;
+	}
+
+	public void setReimbursement(Long reimbursement) {
+		this.reimbursement = reimbursement;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(approved, benCo, departmentHead, email, employeeId, inbox, pending, supervisor, userType,
+		return Objects.hash(benCo, departmentHead, email, employeeId, inbox, reimbursement, supervisor, userType,
 				username);
 	}
 
@@ -172,19 +167,20 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(approved, other.approved) && Objects.equals(benCo, other.benCo)
-				&& Objects.equals(departmentHead, other.departmentHead) && Objects.equals(email, other.email)
-				&& Objects.equals(employeeId, other.employeeId) && Objects.equals(inbox, other.inbox)
-				&& Objects.equals(pending, other.pending) && Objects.equals(supervisor, other.supervisor)
-				&& userType == other.userType && Objects.equals(username, other.username);
+		return Objects.equals(benCo, other.benCo) && Objects.equals(departmentHead, other.departmentHead)
+				&& Objects.equals(email, other.email) && Objects.equals(employeeId, other.employeeId)
+				&& Objects.equals(inbox, other.inbox) && Objects.equals(reimbursement, other.reimbursement)
+				&& Objects.equals(supervisor, other.supervisor) && userType == other.userType
+				&& Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", email=" + email + ", employeeId=" + employeeId + ", userType="
-				+ userType + ", pending=" + pending + ", approved=" + approved + ", supervisor=" + supervisor
-				+ ", departmentHead=" + departmentHead + ", benCo=" + benCo + ", inbox=" + inbox + "]";
+				+ userType + ", reimbursement=" + reimbursement + ", supervisor=" + supervisor + ", departmentHead="
+				+ departmentHead + ", benCo=" + benCo + ", inbox=" + inbox + "]";
 	}
+
 	
 	
 	
