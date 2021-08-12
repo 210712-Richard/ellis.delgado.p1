@@ -37,7 +37,8 @@ public class Driver {
 		log.error("Database failed to build. Error thrown: "+ e);
 		e.printStackTrace();
 		}
-	
+	DatabaseCreator.populateEventTable();
+	DatabaseCreator.populateFormTable();
 	DatabaseCreator.populateUserTable();
 	System.exit(0);
 		

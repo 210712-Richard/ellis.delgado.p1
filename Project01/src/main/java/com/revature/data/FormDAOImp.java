@@ -29,9 +29,7 @@ public class FormDAOImp implements FormDAO{
 	@Override
 	public List<Form> getUserForms(String employee) {
 		List<Form> forms = new ArrayList<Form>();
-		String query = "Select formId, employee, date, time, description, cost,"
-//				+ "type, "
-				+ "grade, event, file, status, timeMissed, urgency from form_db where employee = ?";
+		String query = "Select * from form_db where employee = ?";
 		
 		BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query).build()).bind(employee);
 		ResultSet result = session.execute(boundStat);

@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.beans.*;
 import com.revature.data.EventDAO;
 import com.revature.data.EventDAOImp;
@@ -16,33 +19,94 @@ import com.revature.data.UserDAO;
 import com.revature.data.UserDAOImp;
 import com.revature.util.CassandraUtil;
 
+
+
+
 public class DatabaseCreator {
 	public static UserDAO userDao = new UserDAOImp();
 	public static FormDAO formDao = new FormDAOImp();
 	public static InboxDAO inboxDAO = new InboxDAOImp();
 	public static EventDAO eventDAO = new EventDAOImp();
 	
+	private static Logger log = LogManager.getLogger(DatabaseCreator.class);
+	
 	public static void dropTables() {
 		StringBuilder stringBuild = new StringBuilder("DROP TABLE IF EXISTS user;");
 		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 		
+		stringBuild = new StringBuilder("DROP TABLE IF EXISTS form_db;");
+		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
+		
+		stringBuild = new StringBuilder("DROP TABLE IF EXISTS event_db;");
+		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 	}
 	
 	public static void createTables() {
+		//event_db
+		StringBuilder stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS event_db(")
+				.append("eventId uuid, startDate date, type text, title text, description text, "
+						+ "primary key(eventId, title) );");
+		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
+		log.trace("Event table built");
+				
+		//form_db.
+			 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS form_db(")
+					.append("formId uuid, employee text, date date, time date,")
+					.append("description text, type text, grade text, event text, file text,")
+					.append("status text, timeMissed bigint, urgency text, primary key (formId, employee));");
+				CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
+				log.trace("Form table built");
 		//user
-		StringBuilder stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS User (")
-				.append("username text PRIMARY KEY, email text, employeeId bigint, ")
-				.append("userType text, reimbursement bigint, forms list<forms>, supervisor text, departmentHead text, benCo text, inbox list<Inbox>);");
+		 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS user (")
+				.append("username text PRIMARY KEY, email text, employeeId uuid, ")
+				.append("userType text, reimbursement bigint, "
+						+ "forms list<uuid>, "
+						+ "supervisor text, departmentHead text, benCo text, inbox list<uuid>);");
 		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
+		log.trace("User table built");
 		
-		//form_db
-		stringBuild = new StringBuilder("CREATE TABLE IF NOT EXIST form_db")
-			.append("formId bigint PRIMARY KEY, employee text, date date, time date,")
-			.append("description text, type text, grade text, event text, file text,")
-			.append("status text, timeMissed bigint, urgency text;");
-		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
+		
 	}
+public static void populateEventTable() {
+	UUID eventId = UUID.randomUUID();
+	LocalDate startDate = LocalDate.of(2021, 05, 22);
+	EventType type = EventType.Certification;
 	
+	EventOp event = new EventOp(eventId, startDate, type, "exampleCert", 
+			"An example certification event");
+	event.setEventId(eventId);
+	event.setStartDate(startDate);
+	event.setType(type);
+	
+	eventDAO.addEvent(event);
+}
+public static void populateFormTable() {
+		
+		
+		UUID formId = UUID.randomUUID();
+		LocalDate date = LocalDate.of(2021, 04, 12);
+		LocalDateTime time = LocalDateTime.now();
+		EventOp event = eventDAO.getEventbyTitle("exampleCert");
+		FileObject file = new FileObject();
+		Status status = Status.Pending;
+
+		Form form = new Form(formId, "Logan", date, time, "Example",
+				500L, "B", event, file, status, 0, true  );
+		formDao.addForm(form);
+		
+		Form form1 = new Form(formId, "Scott", date, time, "Example",
+				500L, "B", event, file, status, 0, true  );
+		formDao.addForm(form1);
+		
+		Form form2 = new Form(formId, "Jean", date, time, "Example",
+				500L, "B", event, file, status, 0, true  );
+		formDao.addForm(form2);
+		
+		Form form3 = new Form(formId, "Xavier", date, time, "Example",
+				500L, "B", event, file, status, 0, true  );
+		formDao.addForm(form3);
+		
+	}
 	public static void populateUserTable() {
 		User user = new User("Xavier", "profx@gmail.com", null, null, null, null, null );
 		user.setUserType(UserType.Benefits_Coordinator);
@@ -79,16 +143,6 @@ public class DatabaseCreator {
 		userDao.addUser(user4);
 	}
 	
-	public static void populateFormTable() {
-		
-		
-		UUID formId = UUID.randomUUID();
-		LocalDate date = LocalDate.of(2021, 04, 12);
-		LocalDateTime time = LocalDateTime.now();
-		EventOp event = eventDAO.getEventbyTitle("exampleCert");
-
-		Form form = new Form(formId, "Logan", date, time, "Example", 500L, "B", event,   );
-		
-	}
+	
 
 }
