@@ -27,6 +27,7 @@ public class User implements Serializable{
 	private UUID employeeId;
 	private UserType userType;
 	private Long reimbursement;
+	private List<Form> forms; 
 	private String supervisor;
 	private String departmentHead;
 	private String benCo;
@@ -42,11 +43,12 @@ public class User implements Serializable{
 
 	//Employee
 	public User(String username, String email, UUID employeeId, UserType usertype,
-			String supervisor, String departmentHead, String benCo ) {
+			List<Form> forms, String supervisor, String departmentHead, String benCo ) {
 		this.username= username;
 		this.email = email;
 		this.employeeId= employeeId;
 		this.userType = UserType.Employee;
+		this.forms = forms;
 		this.supervisor= supervisor;
 		this.departmentHead = departmentHead;
 		this.benCo = benCo;
@@ -152,9 +154,17 @@ public class User implements Serializable{
 		this.reimbursement = reimbursement;
 	}
 
+	public List<Form> getForms() {
+		return forms;
+	}
+
+	public void setForms(List<Form> forms) {
+		this.forms = forms;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(benCo, departmentHead, email, employeeId, inbox, reimbursement, supervisor, userType,
+		return Objects.hash(benCo, departmentHead, email, employeeId, forms, inbox, reimbursement, supervisor, userType,
 				username);
 	}
 
@@ -169,16 +179,16 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(benCo, other.benCo) && Objects.equals(departmentHead, other.departmentHead)
 				&& Objects.equals(email, other.email) && Objects.equals(employeeId, other.employeeId)
-				&& Objects.equals(inbox, other.inbox) && Objects.equals(reimbursement, other.reimbursement)
-				&& Objects.equals(supervisor, other.supervisor) && userType == other.userType
-				&& Objects.equals(username, other.username);
+				&& Objects.equals(forms, other.forms) && Objects.equals(inbox, other.inbox)
+				&& Objects.equals(reimbursement, other.reimbursement) && Objects.equals(supervisor, other.supervisor)
+				&& userType == other.userType && Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", email=" + email + ", employeeId=" + employeeId + ", userType="
-				+ userType + ", reimbursement=" + reimbursement + ", supervisor=" + supervisor + ", departmentHead="
-				+ departmentHead + ", benCo=" + benCo + ", inbox=" + inbox + "]";
+				+ userType + ", reimbursement=" + reimbursement + ", forms=" + forms + ", supervisor=" + supervisor
+				+ ", departmentHead=" + departmentHead + ", benCo=" + benCo + ", inbox=" + inbox + "]";
 	}
 
 	

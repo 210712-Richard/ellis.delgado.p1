@@ -3,6 +3,7 @@ package com.revature.service;
 import java.util.List;
 
 import com.revature.beans.Form;
+import com.revature.beans.Inbox;
 import com.revature.beans.User;
 import com.revature.beans.UserType;
 import com.revature.data.FormDAO;
@@ -18,6 +19,9 @@ public class UserServiceImp implements UserService{
 	@Override
 	public User login(String username) {
 		User user = userDao.getUser(username);
+		
+		List<Form> forms = formDao.getUserForms(username);
+		user.setForms(forms);
 		return user;
 	}
 
@@ -36,11 +40,47 @@ public class UserServiceImp implements UserService{
 	}
 
 	@Override
-	public List<Form> getForms(User user) {
-		String username = user.getUsername();
+	public void updateUserReimbursement(User user) {
+//		User loggedUser = user.
 		
-		List<Form> userForms = formDao.getUserForms(username);		
-		return userForms;
 	}
+
+	@Override
+	public Inbox getUserInbox(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSupervisor(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateDepHead(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateBenCo(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateInbox(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

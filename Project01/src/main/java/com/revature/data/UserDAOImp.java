@@ -15,6 +15,8 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import com.datastax.oss.driver.api.core.cql.SimpleStatementBuilder;
+import com.revature.beans.Form;
+import com.revature.beans.Inbox;
 //import com.revature.beans.Form;
 import com.revature.beans.User;
 import com.revature.beans.UserType;
@@ -32,15 +34,15 @@ public class UserDAOImp implements UserDAO{
 	public void addUser(User user) {
 		log.trace("Adding User");
 		String query = "Insert into user (username, email, employeeId, userType, pending, approved, "
-//				+ "forms, "
+				+ "forms, "
 				+ "supervisor, departmentHead, benCo, inbox) values (?, ?, ?, ?, ?, ?, "
-//				+ "?, "
+				+ "?, "
 				+ "?, ?, ?, ?);";
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query).setSerialConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStatement = session.prepare(simpStatement)
 				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType(), 
 						user.getReimbursement(), 
-//						user.getForms(),
+						user.getForms(),
 						user.getSupervisor(),
 						user.getDepartmentHead(), user.getBenCo(), user.getInbox());
 		session.execute(boundStatement);
@@ -50,7 +52,7 @@ public class UserDAOImp implements UserDAO{
 	@Override
 	public List<User> getUsers() {
 		String query = "Select username, email, employeeId, userType, pending, approved, "
-//				+ "forms, "
+			+ "forms, "
 				+ "supervisor, departmentHead, benCo, inbox from user";
 		SimpleStatement simpStatement =  new SimpleStatementBuilder(query).build();
 		ResultSet results = session.execute(simpStatement);
@@ -63,7 +65,7 @@ public class UserDAOImp implements UserDAO{
 			user.setEmployeeId(row.getUuid("employeeId"));
 			user.setUserType(UserType.valueOf(row.getString("userType")));
 			user.setReimbursement(row.getLong("reimbursement"));
-//			user.setForm(getUserForms("username"));
+			user.setForms(getUserForms("username"));
 			user.setSupervisor(row.getString("supervisor"));
 			user.setDepartmentHead(row.getString("departmentHead"));
 			user.setBenCo(row.getString("benCo"));
@@ -92,7 +94,7 @@ public class UserDAOImp implements UserDAO{
 		user.setEmployeeId(row.getUuid("employeeId"));
 		user.setUserType(UserType.valueOf(row.getString("userType")));
 		user.setReimbursement(row.getLong("reimbursement"));
-//		user.setForm(getUserForms(username));
+		user.setForms(getUserForms(username));
 		user.setSupervisor(row.getString("supervisor"));
 		user.setDepartmentHead(row.getString("departmentHead"));
 		user.setBenCo(row.getString("benCo"));
@@ -121,26 +123,43 @@ public class UserDAOImp implements UserDAO{
 		BoundStatement boundStatement = session.prepare(simpStatement)
 				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType(), 
 						user.getReimbursement(), 
-//						forms, 
+						user.getForms(), 
 						user.getSupervisor(),
 						user.getDepartmentHead(), user.getBenCo(), inbox);
 		session.execute(boundStatement);
 	}
 
-//	@Override
-//	public List<Form> getUserForms(String username) {
-//		String query = "Select form from user where username = ?";
-//		SimpleStatement simpStatement = new SimpleStatementBuilder(query).build();
-//		BoundStatement boundStatement = session.prepare(simpStatement).bind(username);
-//		
-//		ResultSet results = session.execute(boundStatement);
-//		Row row = results.one();
-//		if(row == null) {
-//			return null;
-//		}
-//		List<Form> forms = row.getList("forms", Form.class);
-//		return forms;
-//	}
+	@Override
+	public List<Form> getUserForms(String username) {
+		String query = "Select forms from user where username = ?";
+		SimpleStatement simpStatement = new SimpleStatementBuilder(query).build();
+		BoundStatement boundStatement = session.prepare(simpStatement).bind(username);
+		
+		ResultSet results = session.execute(boundStatement);
+		Row row = results.one();
+		if(row == null) {
+			return null;
+		}
+		List<Form> forms = row.getList("forms", Form.class);
+		return forms;
+	}
+
+	@Override
+	public List<Inbox> getUserInbox(String username) {
+		String query = "Select inbox from user where username = ?";
+		
+		SimpleStatement simpStatement = new SimpleStatementBuilder(query).build();
+		BoundStatement boundStatement = session.prepare(simpStatement).bind(username);
+		
+		ResultSet results = session.execute(boundStatement);
+		Row row = results.one();
+		if(row == null) {
+			return null;
+		}
+		List<Inbox> inbox = row.getList("inbox", Inbox.class);
+		return inbox;
+	
+	}
 
 
 }
