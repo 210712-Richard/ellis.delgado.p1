@@ -21,7 +21,7 @@ public class Form implements FormInt{
 	public EventOp event;
 	
 	//Optional stuff
-	public FileObject file;
+	public String file;
 	public Status status;
 	public Integer timeMissed;
 	public Boolean urgency;
@@ -31,7 +31,7 @@ public class Form implements FormInt{
 	}
 	public Form(UUID formId, String employee, LocalDate date, 
 			LocalDateTime time, String description, 
-			Long Cost, String grade, EventOp event, FileObject file, 
+			Long Cost, String grade, EventOp event, String file, 
 			Status status, Integer timeMissed, Boolean urgency) {
 		this.formId = formId;
 		this.employee = employee;
@@ -84,10 +84,10 @@ public class Form implements FormInt{
 	public void setEvent(EventOp event) {
 		this.event = event;
 	}
-	public FileObject getFile() {
+	public String getFile() {
 		return file;
 	}
-	public void setFile(FileObject file) {
+	public void setFile(String file) {
 		this.file = file;
 	}
 	public Status getStatus() {
@@ -148,14 +148,6 @@ public class Form implements FormInt{
 				+ ", description=" + description + ", cost=" + cost + ", grade=" + grade + ", event=" + event
 				+ ", file=" + file + ", status=" + status + ", timeMissed=" + timeMissed + ", urgency=" + urgency + "]";
 	}
-	
-//	public ReimbursementType getType() {
-//		return type;
-//	}
-//	public void setType(ReimbursementType type) {
-//		this.type = type;
-//	}
-	
 	
 	
 	

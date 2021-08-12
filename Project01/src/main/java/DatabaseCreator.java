@@ -70,13 +70,15 @@ public class DatabaseCreator {
 public static void populateEventTable() {
 	UUID eventId = UUID.randomUUID();
 	LocalDate startDate = LocalDate.of(2021, 05, 22);
-	EventType type = EventType.Certification;
+//	EventType type = EventType.Certification;
 	
-	EventOp event = new EventOp(eventId, startDate, type, "exampleCert", 
+	EventOp event = new EventOp(eventId, startDate, EventType.Certification, "exampleCert", 
 			"An example certification event");
+	
+	//might have to use EnumNameCodec
 	event.setEventId(eventId);
 	event.setStartDate(startDate);
-	event.setType(type);
+//	event.setType(type);
 	
 	eventDAO.addEvent(event);
 }
@@ -87,7 +89,8 @@ public static void populateFormTable() {
 		LocalDate date = LocalDate.of(2021, 04, 12);
 		LocalDateTime time = LocalDateTime.now();
 		EventOp event = eventDAO.getEventbyTitle("exampleCert");
-		FileObject file = new FileObject();
+		String file = "https://globalspex.com/wp-content"
+				+ "/uploads/2019/10/support-form-example-540x600.png";
 		Status status = Status.Pending;
 
 		Form form = new Form(formId, "Logan", date, time, "Example",

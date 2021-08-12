@@ -44,7 +44,7 @@ public class FormDAOImp implements FormDAO{
 //			f.setType(ReimbursementType.valueOf(row.getString("type")));
 			f.setGrade(row.getString("grade"));
 			f.setEvent(null);
-			f.setFile(null);
+			f.setFile(row.getString("file"));
 			f.setStatus(Status.valueOf(row.getString("status")));
 			f.setTimeMissed(row.getInt("timeMissed"));
 			f.setUrgency(row.getBoolean("urgency"));

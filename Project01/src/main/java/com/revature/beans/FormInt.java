@@ -27,8 +27,8 @@ public interface FormInt extends Serializable{
 	void setEvent(EventOp event);
 	
 	
-	FileObject getFile();
-	void setFile(FileObject file);
+	String getFile();
+	void setFile(String file);
 	
 	Status getStatus();
 	void setStatus(Status status);
