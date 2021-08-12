@@ -2,6 +2,7 @@ package com.revature.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 //import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -70,7 +71,7 @@ public class UserDAOImp implements UserDAO{
 			user.setDepartmentHead(row.getString("departmentHead"));
 			user.setBenCo(row.getString("benCo"));
 			//change once inbox is done
-			user.setInbox(null);
+			user.setInbox(getUserInbox(user.getUsername().toString()));
 			
 			users.add(user);
 		});
@@ -99,7 +100,7 @@ public class UserDAOImp implements UserDAO{
 		user.setDepartmentHead(row.getString("departmentHead"));
 		user.setBenCo(row.getString("benCo"));
 		//change once inbox is done
-		user.setInbox(null);
+		user.setInbox(getUserInbox(username));
 		
 		return user;
 	}
@@ -107,11 +108,11 @@ public class UserDAOImp implements UserDAO{
 	@Override
 	public void updateUser(User user) {
 		String query = "Update user set email = ?, employeeId = ?, userType = ?, pending = ?, approved = ?, forms = ?, supervisor = ?, departmentHead = ?, benCo = ?, inbox = ? where username=?";
-//		List<UUID> forms = formDAO.getForms()
-//				.stream()
-//				.filter(f -> f!=null)
-//				.map(f -> f.getFormId())
-//				.collect(Collectors.toList());
+		List<UUID> forms = user.getForms()
+				.stream()
+				.filter(f -> f!=null)
+				.map(f -> f.getFormId())
+				.collect(Collectors.toList());
 		
 		List<Object> inbox = user.getInbox()
 				.stream()
@@ -125,7 +126,7 @@ public class UserDAOImp implements UserDAO{
 						user.getReimbursement(), 
 						user.getForms(), 
 						user.getSupervisor(),
-						user.getDepartmentHead(), user.getBenCo(), inbox);
+						user.getDepartmentHead(), user.getBenCo(), forms, inbox);
 		session.execute(boundStatement);
 	}
 

@@ -13,7 +13,7 @@ public class EventOp implements Serializable{
 	
 	UUID eventId;
 	LocalDate startDate;
-	EventType type;
+	String type;
 	String title; 
 	String description;
 	
@@ -21,7 +21,7 @@ public class EventOp implements Serializable{
 		super();
 		
 	}
-	public EventOp(UUID eventId, LocalDate startDate, EventType type, String title, String description) {
+	public EventOp(UUID eventId, LocalDate startDate, String type, String title, String description) {
 		this.eventId = eventId;
 		this.startDate= startDate;
 		this.type = type;
@@ -41,10 +41,10 @@ public class EventOp implements Serializable{
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public EventType getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(EventType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public String getTitle() {
@@ -74,7 +74,7 @@ public class EventOp implements Serializable{
 		EventOp other = (EventOp) obj;
 		return Objects.equals(description, other.description) && Objects.equals(eventId, other.eventId)
 				&& Objects.equals(startDate, other.startDate) && Objects.equals(title, other.title)
-				&& type == other.type;
+				&& Objects.equals(type, other.type);
 	}
 	@Override
 	public String toString() {
@@ -82,7 +82,6 @@ public class EventOp implements Serializable{
 				+ ", description=" + description + "]";
 	}
 	
-
 	
 	
 }

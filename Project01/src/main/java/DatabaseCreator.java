@@ -21,7 +21,6 @@ import com.revature.util.CassandraUtil;
 
 
 
-
 public class DatabaseCreator {
 	public static UserDAO userDao = new UserDAOImp();
 	public static FormDAO formDao = new FormDAOImp();
@@ -52,7 +51,7 @@ public class DatabaseCreator {
 		//form_db.
 			 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS form_db(")
 					.append("formId uuid, employee text, date date, time date,")
-					.append("description text, type text, grade text, event text, file text,")
+					.append("description text, cost bigint, type text, grade text, event text, file text,")
 					.append("status text, timeMissed bigint, urgency text, primary key (formId, employee));");
 				CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 				log.trace("Form table built");
@@ -72,12 +71,12 @@ public static void populateEventTable() {
 	LocalDate startDate = LocalDate.of(2021, 05, 22);
 //	EventType type = EventType.Certification;
 	
-	EventOp event = new EventOp(eventId, startDate, EventType.Certification, "exampleCert", 
+	EventOp event = new EventOp(eventId, startDate, "certification", "exampleCert", 
 			"An example certification event");
 	
 	//might have to use EnumNameCodec
-	event.setEventId(eventId);
-	event.setStartDate(startDate);
+//	event.setEventId(eventId);
+//	event.setStartDate(startDate);
 //	event.setType(type);
 	
 	eventDAO.addEvent(event);
@@ -88,7 +87,7 @@ public static void populateFormTable() {
 		UUID formId = UUID.randomUUID();
 		LocalDate date = LocalDate.of(2021, 04, 12);
 		LocalDateTime time = LocalDateTime.now();
-		EventOp event = eventDAO.getEventbyTitle("exampleCert");
+		EventOp event = eventDAO.getEventbyTitleAndType("exampleCert", "certification");
 		String file = "https://globalspex.com/wp-content"
 				+ "/uploads/2019/10/support-form-example-540x600.png";
 		Status status = Status.Pending;

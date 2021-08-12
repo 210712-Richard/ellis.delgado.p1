@@ -32,7 +32,7 @@ public class Driver {
 	}
 	DatabaseCreator.createTables();
 	try {
-		Thread.sleep(30000);
+		Thread.sleep(40000);
 	}catch(Exception e) {
 		log.error("Database failed to build. Error thrown: "+ e);
 		e.printStackTrace();

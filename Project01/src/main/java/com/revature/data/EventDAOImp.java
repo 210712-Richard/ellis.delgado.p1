@@ -26,7 +26,7 @@ public class EventDAOImp implements EventDAO{
 	
 	@Override
 	public EventOp getEventbyId(UUID eventId) {
-		String query = "Select * from event_db where eventId = ?";
+		String query = "Select eventId, startDate, type, title, description from event_db where eventId = ?";
 		
 		BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query)
 				.build()).bind(eventId);
@@ -41,7 +41,7 @@ public class EventDAOImp implements EventDAO{
 		EventOp e = new EventOp();
 		e.setEventId(row.getUuid("eventId"));
 		e.setStartDate(row.getLocalDate("startDate"));
-		e.setType(EventType.valueOf(row.getString("type")));
+		e.setType(row.getString("type"));
 		e.setTitle(row.getString("title"));
 		e.setDescription(row.getString("description"));
 		
@@ -74,7 +74,7 @@ public class EventDAOImp implements EventDAO{
 			EventOp e = new EventOp();
 			e.setEventId(row.getUuid("eventId"));
 			e.setStartDate(row.getLocalDate("startDate"));
-			e.setType(EventType.valueOf(row.getString("type")));
+			e.setType(row.getString("type"));
 			e.setTitle(row.getString("title"));
 			e.setDescription(row.getString("description"));
 			
@@ -112,11 +112,11 @@ public class EventDAOImp implements EventDAO{
 	}
 
 	@Override
-	public EventOp getEventbyTitle(String title) {
-String query = "Select * from event_db where title = ?";
+	public EventOp getEventbyTitleAndType(String title, String type) {
+		String query = "Select eventId, startDate, type, title, description from event_db where title = ? and type = ? ALLOW FILTERING;";
 		
 		BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query)
-				.build()).bind(title);
+				.build()).bind(title, type);
 		
 		ResultSet result = session.execute(boundStat);
 		
@@ -128,7 +128,7 @@ String query = "Select * from event_db where title = ?";
 		EventOp e = new EventOp();
 		e.setEventId(row.getUuid("eventId"));
 		e.setStartDate(row.getLocalDate("startDate"));
-		e.setType(EventType.valueOf(row.getString("type")));
+		e.setType(row.getString("type"));
 		e.setTitle(row.getString("title"));
 		e.setDescription(row.getString("description"));
 		
