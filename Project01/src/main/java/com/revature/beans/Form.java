@@ -13,9 +13,8 @@ public class Form implements FormInt{
 	public UUID formId;
 	public String employee;
 	public LocalDate date;
-	public LocalDateTime time;
 	public String description;
-	public Long cost;
+	public Integer cost;
 //	public ReimbursementType type;
 	public String grade;
 	public EventOp event;
@@ -27,16 +26,16 @@ public class Form implements FormInt{
 	public Boolean urgency;
 	public Form() {
 		super();
-		this.cost=0L;
+		this.cost=0;
 	}
 	public Form(UUID formId, String employee, LocalDate date, 
-			LocalDateTime time, String description, 
-			Long Cost, String grade, EventOp event, String file, 
+			 String description, Integer Cost, String grade, 
+			 EventOp event, String file, 
 			Status status, Integer timeMissed, Boolean urgency) {
 		this.formId = formId;
 		this.employee = employee;
 		this.date = date;
-		this.time = time;
+//		this.time = time;
 		this.description = description;
 //		this.type = ReimbursementType.UNIVERSITY;
 		this.grade = grade;
@@ -66,10 +65,10 @@ public class Form implements FormInt{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Long getCost() {
+	public Integer getCost() {
 		return cost;
 	}
-	public void setCost(Long cost) {
+	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
 	public String getGrade() {
@@ -96,13 +95,13 @@ public class Form implements FormInt{
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public LocalDateTime getTime() {
-		return time;
-	}
-	public void setTime(LocalDateTime time) {
-		this.time= time;
-		
-	}
+//	public LocalDateTime getTime() {
+//		return time;
+//	}
+//	public void setTime(LocalDateTime time) {
+//		this.time= time;
+//		
+//	}
 	public Integer getTimeMissed() {
 		return timeMissed;
 	}
@@ -123,8 +122,7 @@ public class Form implements FormInt{
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(cost, date, description, employee, event, file, formId, grade, status, time, timeMissed,
-				urgency);
+		return Objects.hash(cost, date, description, employee, event, file, formId, grade, status, timeMissed, urgency);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -139,17 +137,14 @@ public class Form implements FormInt{
 				&& Objects.equals(description, other.description) && Objects.equals(employee, other.employee)
 				&& Objects.equals(event, other.event) && Objects.equals(file, other.file)
 				&& Objects.equals(formId, other.formId) && Objects.equals(grade, other.grade) && status == other.status
-				&& Objects.equals(time, other.time) && Objects.equals(timeMissed, other.timeMissed)
-				&& Objects.equals(urgency, other.urgency);
+				&& Objects.equals(timeMissed, other.timeMissed) && Objects.equals(urgency, other.urgency);
 	}
 	@Override
 	public String toString() {
-		return "Form [formId=" + formId + ", employee=" + employee + ", date=" + date + ", time=" + time
-				+ ", description=" + description + ", cost=" + cost + ", grade=" + grade + ", event=" + event
-				+ ", file=" + file + ", status=" + status + ", timeMissed=" + timeMissed + ", urgency=" + urgency + "]";
+		return "Form [formId=" + formId + ", employee=" + employee + ", date=" + date + ", description=" + description
+				+ ", cost=" + cost + ", grade=" + grade + ", event=" + event + ", file=" + file + ", status=" + status
+				+ ", timeMissed=" + timeMissed + ", urgency=" + urgency + "]";
 	}
-	
-	
 	
 	
 }

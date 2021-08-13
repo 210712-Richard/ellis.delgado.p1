@@ -50,9 +50,9 @@ public class DatabaseCreator {
 				
 		//form_db.
 			 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS form_db(")
-					.append("formId uuid, employee text, date date, time date,")
-					.append("description text, cost bigint, type text, grade text, event text, file text,")
-					.append("status text, timeMissed bigint, urgency text, primary key (formId, employee));");
+					.append("formId uuid, employee text, date date, ")
+					.append("description text, cost text, type text, grade text, event text, file text,")
+					.append("status text, timeMissed text, urgency text, primary key (formId, employee));");
 				CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 				log.trace("Form table built");
 		//user
@@ -86,27 +86,32 @@ public static void populateFormTable() {
 		
 		UUID formId = UUID.randomUUID();
 		LocalDate date = LocalDate.of(2021, 04, 12);
-		LocalDateTime time = LocalDateTime.now();
+		
 		EventOp event = eventDAO.getEventbyTitleAndType("exampleCert", "certification");
 		String file = "https://globalspex.com/wp-content"
 				+ "/uploads/2019/10/support-form-example-540x600.png";
 		Status status = Status.Pending;
+		
 
-		Form form = new Form(formId, "Logan", date, time, "Example",
-				500L, "B", event, file, status, 0, true  );
+		Form form = new Form(formId, "Logan", date, "Example",
+				null, "B", event, file, status, 0, true  );
+		form.setCost(500);
 		formDao.addForm(form);
 		
-		Form form1 = new Form(formId, "Scott", date, time, "Example",
-				500L, "B", event, file, status, 0, true  );
-		formDao.addForm(form1);
+		 form = new Form(formId, "Scott", date, "Example",
+				null, "B", event, file, status, 0, true  );
+		 form.setCost(500);
+		formDao.addForm(form);
 		
-		Form form2 = new Form(formId, "Jean", date, time, "Example",
-				500L, "B", event, file, status, 0, true  );
-		formDao.addForm(form2);
+		 form = new Form(formId, "Jean", date, "Example",
+				null, "B", event, file, status, 0, true  );
+		 form.setCost(500);
+		formDao.addForm(form);
 		
-		Form form3 = new Form(formId, "Xavier", date, time, "Example",
-				500L, "B", event, file, status, 0, true  );
-		formDao.addForm(form3);
+		 form = new Form(formId, "Xavier", date, "Example",
+				null, "B", event, file, status, 0, true  );
+		 form.setCost(500);
+		formDao.addForm(form);
 		
 	}
 	public static void populateUserTable() {

@@ -40,7 +40,7 @@ public class FormDAOImp implements FormDAO{
 			f.setEmployee(row.getString("employee"));
 			f.setDate(row.getLocalDate("date"));
 			f.setDescription(row.getString("description"));
-			f.setCost(row.getLong("cost"));
+			f.setCost(row.getInt("cost"));
 //			f.setType(ReimbursementType.valueOf(row.getString("type")));
 			f.setGrade(row.getString("grade"));
 			f.setEvent(null);
@@ -88,19 +88,30 @@ public class FormDAOImp implements FormDAO{
 
 	@Override
 	public UUID addForm(Form form) {
-		String query = "Insert into form_db (formId, employee, date, time, description, cost, "
-		+ "grade, event, file, status, timeMissed, urgency) values  (?, ?, ? ,?, ?, ? ,? ,?,?,?,?,?);";
+		String query = "Insert into form_db (formId, employee, date, description, cost, "
+		+ "grade, event, file, status, timeMissed, urgency) values  (?,  ? ,?, ?, ? ,? ,?,?,?,?,?);";
 	
 		UUID formId = UUID.randomUUID();
 		
 		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)
-				.bind(formId, form.getEmployee(), form.getDate(), form.getTime(), form.getCost(), 
-//						form.getType(), 
-						form.getGrade(), form.getEvent(), form.getFile(), form.getStatus(), form.getTimeMissed(), form.getUrgency() );
+				.bind(formId, form.getEmployee(), form.getDate(), form.getCost().toString(), 
+						form.getGrade(), form.getEvent().toString(), form.getFile().toString(), form.getStatus().toString(), form.getTimeMissed().toString(), form.getUrgency().toString() );
 		session.execute(boundStat);
 		
 		return formId;
+	}
+
+	@Override
+	public void updateFile(Form form) {
+		
+			String query = "update form_db set file = ? where formId = ?;";
+			SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
+			BoundStatement boundStat = session.prepare(simpState)
+					.bind(form.getFile(), form.getFormId());
+			session.execute(boundStat);
+		
+		
 	}
 
 }

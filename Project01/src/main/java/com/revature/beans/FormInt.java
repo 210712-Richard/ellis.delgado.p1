@@ -11,14 +11,14 @@ public interface FormInt extends Serializable{
 	LocalDate getDate();
 	void setDate(LocalDate date);
 	
-	LocalDateTime getTime();
-	void setTime(LocalDateTime time);
+//	LocalDateTime getTime();
+//	void setTime(LocalDateTime time);
 	
 	String getDescription();
 	void setDescription(String description);
 	
-	Long getCost();
-	void setCost(Long cost);
+	Integer getCost();
+	void setCost(Integer cost);
 	
 	String getGrade();
 	void setGrade(String grade);

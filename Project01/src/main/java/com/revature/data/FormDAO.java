@@ -16,5 +16,7 @@ public interface FormDAO {
 	
 	void deleteForm(Form form); 
 	
+	void updateFile(Form form);
+	
 	
 }
