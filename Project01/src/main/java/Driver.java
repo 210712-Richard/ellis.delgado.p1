@@ -17,7 +17,7 @@ public class Driver {
 	private static Logger log = LogManager.getLogger(Driver.class);
 	
 	public static void main (String[] args) {
-//		startDatabase();
+//	startDatabase();
 		javalin();
 	
 	}
@@ -77,8 +77,8 @@ public class Driver {
 		//post
 		app.post("/users", uc::login);
 		app.post("/users/:username/newForm", fc::addForm);
-		app.post("/users/:username/newFile", fc::addFile);
-		app.post("/newEvent", uc::addEvent);
+		app.post("/users/:username/newFile/:filename", fc::addFile);
+		app.post("/users/:username/newEvent/:title/:type/:description/:year/:month/:day", uc::addEvent);
 		
 		//put
 		app.put("/users/:username", uc::register);

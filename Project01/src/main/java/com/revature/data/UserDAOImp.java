@@ -34,14 +34,14 @@ public class UserDAOImp implements UserDAO{
 	@Override
 	public void addUser(User user) {
 		log.trace("Adding User");
-		String query = "Insert into user (username, email, employeeId, userType, pending, approved, "
-				+ "forms, "
-				+ "supervisor, departmentHead, benCo, inbox) values (?, ?, ?, ?, ?, ?, "
-				+ "?, "
-				+ "?, ?, ?, ?);";
-		SimpleStatement simpStatement = new SimpleStatementBuilder(query).setSerialConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
+		String query = "Insert into user (username, email, employeeId, userType, "
+				+ "reimbursement, forms, "
+				+ "supervisor, departmentHead, benCo, inbox) values (?, ?, ?, ?, "
+				+ "?, ?, ?, ?, ?, ?);";
+		SimpleStatement simpStatement = new SimpleStatementBuilder(query)
+				.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStatement = session.prepare(simpStatement)
-				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType(), 
+				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType().toString(), 
 						user.getReimbursement(), 
 						user.getForms(),
 						user.getSupervisor(),
@@ -107,7 +107,7 @@ public class UserDAOImp implements UserDAO{
 
 	@Override
 	public void updateUser(User user) {
-		String query = "Update user set email = ?, employeeId = ?, userType = ?, pending = ?, approved = ?, forms = ?, supervisor = ?, departmentHead = ?, benCo = ?, inbox = ? where username=?";
+		String query = "Update user set email = ?, employeeId = ?, userType = ?, reimbursement=?, forms = ?, supervisor = ?, departmentHead = ?, benCo = ?, inbox = ? where username=?";
 		List<UUID> forms = user.getForms()
 				.stream()
 				.filter(f -> f!=null)
@@ -118,9 +118,9 @@ public class UserDAOImp implements UserDAO{
 				.stream()
 				.filter(i -> i!=null)
 				//change this once were done with the inbox list
-				.map(null)
+				.map(i -> i.getMessageId())
 				.collect(Collectors.toList());
-		SimpleStatement simpStatement = new SimpleStatementBuilder(query).setSerialConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
+		SimpleStatement simpStatement = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStatement = session.prepare(simpStatement)
 				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType(), 
 						user.getReimbursement(), 

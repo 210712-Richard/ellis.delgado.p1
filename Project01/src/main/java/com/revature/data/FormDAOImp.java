@@ -98,8 +98,9 @@ public class FormDAOImp implements FormDAO{
 		
 		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)
-				.bind(formId, form.getEmployee(), form.getDate(), form.getCost().toString(), 
-						form.getGrade(), form.getEvent().toString(), form.getFile().toString(), form.getStatus().toString(), form.getTimeMissed().toString(), form.getUrgency().toString() );
+				.bind(formId, form.getEmployee(), form.getDate(), form.getDescription(),form.getCost(), 
+						form.getGrade(), form.getEvent().toString(), 
+						form.getFile().toString(), form.getStatus().toString(), form.getTimeMissed(), form.getUrgency().toString() );
 		session.execute(boundStat);
 		
 		return formId;
@@ -119,7 +120,7 @@ public class FormDAOImp implements FormDAO{
 
 	@Override
 	public Form getFormbyEmployee(String employee) {
-		String query = "Select * from form_db where employee = ?";
+		String query = "Select * from form_db where employee = ? ALLOW FILTERING";
 		
 		BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query).build()).bind(employee); 
 		ResultSet result = session.execute(boundStat);
@@ -129,7 +130,7 @@ public class FormDAOImp implements FormDAO{
 			return null;
 		}
 		Form f = new Form();
-		f.setFormId(row.getUuid("id"));
+		f.setFormId(row.getUuid("formId"));
 		f.setEmployee(row.getString("employee"));
 		f.setDate(row.getLocalDate("date"));
 		f.setDescription(row.getString("description"));
