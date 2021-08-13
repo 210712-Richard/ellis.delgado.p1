@@ -51,7 +51,7 @@ public class InboxDAOImp implements InboxDAO{
 		log.trace("Add to inbox");
 		
 		String query = 
-				"Insert into inbox (mesaageId, title, message, alert) values (?, ?, ?);";
+				"Insert into inbox (mesaageId, title, message, alert) values (?, ?, ?, ?);";
 		UUID inboxId = UUID.randomUUID();
 		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)

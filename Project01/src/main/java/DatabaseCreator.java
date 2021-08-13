@@ -64,6 +64,11 @@ public class DatabaseCreator {
 		CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 		log.trace("User table built");
 		
+		 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS inbox (")
+					.append("messageId uuid PRIMARY KEY, title text, message text, alert text); ");
+					
+			CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
+			log.trace("Inbox table built");
 		
 	}
 public static void populateEventTable() {
@@ -94,30 +99,77 @@ public static void populateFormTable() {
 		
 		
 
-		Form form = new Form(formId, "Logan", date, "Example",
-				null, "B", event, file, status, 0, true  );
+		Form form = new Form( );
+		form.setEmployee("Logan");
+		form.setFormId(formId);
 		form.setCost(500);
+		form.setDate(date);
+		form.setDescription("example");
+		form.setEvent(event);
+		form.setFile(file);
+		form.setGrade("B");
+		form.setStatus(status);
+		form.setTimeMissed(0);
 		form.setUrgency(true);
+		
 		formDao.addForm(form);
 		
-		 form = new Form(formId, "Scott", date, "Example",
-				null, "B", event, file, status, 0, true  );
-		 form.setCost(500);
-		 form.setUrgency(true);
+		 form = new Form();
+		 form.setEmployee("Scott");
+			form.setFormId(formId);
+			form.setCost(500);
+			form.setDate(date);
+			form.setDescription("example");
+			form.setEvent(event);
+			form.setFile(file);
+			form.setGrade("B");
+			form.setStatus(status);
+			form.setTimeMissed(0);
+			form.setUrgency(true);
 		formDao.addForm(form);
 		
-		 form = new Form(formId, "Jean", date, "Example",
-				null, "B", event, file, status, 0, true  );
-		 form.setCost(500);
-		 form.setUrgency(true);
+		 form = new Form( );
+		 form.setEmployee("Jean Grey");
+			form.setFormId(formId);
+			form.setCost(500);
+			form.setDate(date);
+			form.setDescription("example");
+			form.setEvent(event);
+			form.setFile(file);
+			form.setGrade("B");
+			form.setStatus(status);
+			form.setTimeMissed(0);
+			form.setUrgency(true);
 		formDao.addForm(form);
 		
-		 form = new Form(formId, "Xavier", date, "Example",
-				null, "B", event, file, status, 0, true  );
-		 form.setCost(500);
-		 form.setUrgency(true);
+		 form = new Form();
+		 form.setEmployee("Xavier");
+			form.setFormId(formId);
+			form.setCost(500);
+			form.setDate(date);
+			form.setDescription("example");
+			form.setEvent(event);
+			form.setFile(file);
+			form.setGrade("B");
+			form.setStatus(status);
+			form.setTimeMissed(0);
+			form.setUrgency(true);
+			
+			
 		formDao.addForm(form);
 		
+	}
+
+	public static void populateInboxTable() {
+		UUID messageId = UUID.randomUUID();
+		
+		Inbox inbox = new Inbox();
+		inbox.setMessageId(messageId);
+		inbox.setTitle("Example Message");
+		inbox.setMessage("Hello World");
+		inbox.setAlert(AlertType.Neutral);
+		
+		inboxDAO.addInbox(inbox);
 	}
 	public static void populateUserTable() {
 		//benco
@@ -132,9 +184,12 @@ public static void populateFormTable() {
 		user.setDepartmentHead(null);
 		user.setBenCo(null);
 		
-		List<Form> form = userDao.getUserForms(user.getUsername());
-		formDao.addForm((Form) form);
-		user.setForms(form);
+//		List<Form> form = userDao.getUserForms(user.getUsername());
+//		System.out.println(form);
+//		Form form = formDao.getFormbyEmployee(user.getUsername());
+//		formDao.addForm(form);
+//		user.setForms((List<Form>) form);
+//		System.out.println(form);
 		
 		List<Inbox> inbox = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox);
@@ -152,10 +207,10 @@ public static void populateFormTable() {
 		user.setSupervisor(null);
 		user.setDepartmentHead(null);
 		user.setBenCo("Xavier");
-		
-		List<Form> form1 = userDao.getUserForms(user.getUsername());
-		formDao.addForm((Form) form1);
-		user.setForms(form1);
+//		
+//		List<Form> form1 = userDao.getUserForms(user.getUsername());
+//		formDao.addForm((Form) form1);
+//		user.setForms(form1);
 		
 		List<Inbox> inbox1 = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox1);
@@ -172,10 +227,10 @@ public static void populateFormTable() {
 		user.setSupervisor(null);
 		user.setDepartmentHead("Jean Grey");
 		user.setBenCo("Xavier");
-		
-		List<Form> form2 = userDao.getUserForms(user.getUsername());
-		formDao.addForm((Form) form2);
-		user.setForms(form2);
+//		
+//		List<Form> form2 = userDao.getUserForms(user.getUsername());
+//		formDao.addForm((Form) form2);
+//		user.setForms(form2);
 		List<Inbox> inbox2 = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox2);
 		user.setInbox(inbox2);
@@ -192,9 +247,9 @@ public static void populateFormTable() {
 		user.setDepartmentHead("Jean Grey");
 		user.setBenCo("Xavier");
 		
-		List<Form> form3 = userDao.getUserForms(user.getUsername());
-		formDao.addForm((Form) form3);
-		user.setForms(form3);
+//		List<Form> form3 = userDao.getUserForms(user.getUsername());
+//		formDao.addForm((Form) form3);
+//		user.setForms(form3);
 		List<Inbox> inbox3 = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox3);
 		user.setInbox(inbox3);

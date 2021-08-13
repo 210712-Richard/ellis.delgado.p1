@@ -41,6 +41,7 @@ public class Driver {
 		}
 	DatabaseCreator.populateEventTable();
 	DatabaseCreator.populateFormTable();
+	DatabaseCreator.populateInboxTable();
 	DatabaseCreator.populateUserTable();
 	System.exit(0);
 		
