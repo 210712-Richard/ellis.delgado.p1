@@ -1,6 +1,9 @@
 package com.revature.service;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import com.revature.beans.EventOp;
 
 //import java.util.List;
 
@@ -26,6 +29,12 @@ public interface UserService {
 	void updateBenCo(User user, String employee);
 	
 	void updateInbox(User user, String title, String message);
+	
+	List<EventOp> getEvents();
+	
+	EventOp getEventbyTitleAndType(String title, String type);
+	
+	EventOp addEvent(String title, String type, LocalDate startDate, String description);
 	
 	
 	

@@ -59,7 +59,7 @@ public class Driver {
 		app.get("/", (ctx)-> ctx.html("Hello world"));
 		
 		app.post("/users", uc::login);
-		app.get("/user/:username/forms", uc::getForms);
+//		app.get("/user/:username/forms", uc::getForms);
 		app.put("/users/:username", uc::register);
 		app.delete("/users", uc::logout);
 		

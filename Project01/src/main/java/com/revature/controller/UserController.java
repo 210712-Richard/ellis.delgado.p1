@@ -6,13 +6,16 @@ public interface UserController {
 
 		void login (Context ctx);
 		
-		void getForms(Context ctx);
-		
-		void createForm(Context ctx);
-		
 		void logout (Context ctx);
 		
 		void register(Context ctx);
 		
+		void getInbox(Context ctx);
+		
+		void getEvent(Context ctx);
+		
+		void addEvent(Context ctx);
+		
+		void updateReim(Context ctx);
 		
 }

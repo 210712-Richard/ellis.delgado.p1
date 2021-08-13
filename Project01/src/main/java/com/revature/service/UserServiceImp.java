@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -141,7 +142,30 @@ public class UserServiceImp implements UserService{
 	userInbox.add(newMessage);
 		
 	}
+	@Override
+	public	List<EventOp> getEvents() {
+		List<EventOp>events = eventDao.getAllEvents();
+		return events;
+	}
+	public EventOp getEventbyTitleAndType(String title, String type) {
+		EventOp event = eventDao.getEventbyTitleAndType(title, type);
+		return event;
+	}
 
+	public EventOp addEvent(String title, String type, LocalDate startDate, String description) {
+		EventOp newEvent = new EventOp();
+		UUID eventId = UUID.randomUUID();
+		newEvent.setEventId(eventId);
+		newEvent.setTitle(title);
+		newEvent.setType(type);
+		newEvent.setStartDate(startDate);
+		newEvent.setDescription(description);
+		
+		eventDao.addEvent(newEvent);
+		return newEvent;
+	}
+	
+	
 public Long reimburseCalc(String eventType, Integer maxTuition, Long currReimburse, Integer empCost) {
 		
 		Long newAmount = 0l;
@@ -205,5 +229,6 @@ public Long reimburseCalc(String eventType, Integer maxTuition, Long currReimbur
 		return newAmount;
 		
 	}
+
 
 }
