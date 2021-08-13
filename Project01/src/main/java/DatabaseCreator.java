@@ -118,44 +118,82 @@ public static void populateFormTable() {
 		//benco
 		
 		UUID userId = UUID.randomUUID();
-		User user = new User("Xavier", "profx@gmail.com", userId, null, null, null, null, null );
+		User user = new User();
 		user.setUserType(UserType.Benefits_Coordinator);
+		user.setUsername("Xaiver");
+		user.setEmail("profx@gmail.com");
+		user.setEmployeeId(userId);
+		user.setSupervisor(null);
+		user.setDepartmentHead(null);
+		user.setBenCo(null);
+		
 		List<Form> form = userDao.getUserForms(user.getUsername());
 		formDao.addForm((Form) form);
+		user.setForms(form);
+		
 		List<Inbox> inbox = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox);
+		user.setInbox(inbox);
 		userDao.addUser(user);
 		
 		//department head
 		
 		UUID userId2 = UUID.randomUUID();
-		User user2 = new User("Jean", "jgrey@gmail.com", userId2, null, null, null, null, null );
-		user2.setUserType(UserType.Department_Head);
+		 user = new User();
+		user.setUserType(UserType.Department_Head);
+		user.setUsername("Jean Grey");
+		user.setEmail("jgrey@gmail.com");
+		user.setEmployeeId(userId2);
+		user.setSupervisor(null);
+		user.setDepartmentHead(null);
+		user.setBenCo("Xavier");
+		
 		List<Form> form1 = userDao.getUserForms(user.getUsername());
 		formDao.addForm((Form) form1);
+		user.setForms(form1);
+		
 		List<Inbox> inbox1 = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox1);
-		userDao.addUser(user2);
+		user.setInbox(inbox1);
+		userDao.addUser(user);
 		
 		//DS
 		UUID userId3= UUID.randomUUID();
-		User user3 = new User("Scott", "ssummers@gmail.com", userId3, null, null, null, null, null);
-		user3.setUserType(UserType.Direct_Supervisor);
+		user = new User();
+		user.setUserType(UserType.Direct_Supervisor);
+		user.setUsername("Scott");
+		user.setEmail("ssummers@gmail.com");
+		user.setEmployeeId(userId3);
+		user.setSupervisor(null);
+		user.setDepartmentHead("Jean Grey");
+		user.setBenCo("Xavier");
+		
 		List<Form> form2 = userDao.getUserForms(user.getUsername());
 		formDao.addForm((Form) form2);
+		user.setForms(form2);
 		List<Inbox> inbox2 = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox2);
-		userDao.addUser(user3);
+		user.setInbox(inbox2);
+		userDao.addUser(user);
 		
 		//Employee
 		UUID userId4 = UUID.randomUUID();
-		User user4 = new User("Logan", "lhowlett@gmail.com", userId4, null, null, null, null, null);
-		user4.setUserType(UserType.Employee);
+		 user = new User();
+		user.setUserType(UserType.Employee);
+		user.setUsername("Logan");
+		user.setEmail("wolverine@gmail.com");
+		user.setEmployeeId(userId4);
+		user.setSupervisor("Scott");
+		user.setDepartmentHead("Jean Grey");
+		user.setBenCo("Xavier");
+		
 		List<Form> form3 = userDao.getUserForms(user.getUsername());
 		formDao.addForm((Form) form3);
+		user.setForms(form3);
 		List<Inbox> inbox3 = userDao.getUserInbox(user.getUsername());
 		inboxDAO.addInbox((Inbox) inbox3);
-		userDao.addUser(user4);
+		user.setInbox(inbox3);
+		userDao.addUser(user);
 	}
 	
 	
