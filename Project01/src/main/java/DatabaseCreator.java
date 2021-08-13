@@ -50,8 +50,7 @@ public class DatabaseCreator {
 				
 		//form_db.
 			 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS form_db(")
-					.append("formId uuid, employee text, date date, ")
-					.append("description text, cost text, grade text, event text, file text,")
+					.append("formId uuid, employee text, date date, description text, cost text, grade text, event text, file text,")
 					.append("status text, timeMissed text, urgency text, primary key (formId, employee));");
 				CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 				log.trace("Form table built");
@@ -65,7 +64,7 @@ public class DatabaseCreator {
 		log.trace("User table built");
 		
 		 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS inbox (")
-					.append("messageId uuid PRIMARY KEY, title text, message text, alert text); ");
+					.append("messageid uuid PRIMARY KEY, title text, message text, alert text); ");
 					
 			CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 			log.trace("Inbox table built");
@@ -161,8 +160,8 @@ public static void populateFormTable() {
 	}
 
 	public static void populateInboxTable() {
-		UUID messageId = UUID.randomUUID();
 		
+		UUID messageId = UUID.randomUUID();
 		Inbox inbox = new Inbox();
 		inbox.setMessageId(messageId);
 		inbox.setTitle("Example Message");
@@ -190,11 +189,11 @@ public static void populateFormTable() {
 //		formDao.addForm(form);
 //		user.setForms((List<Form>) form);
 //		System.out.println(form);
-		
-		List<Inbox> inbox = userDao.getUserInbox(user.getUsername());
-		inboxDAO.addInbox((Inbox) inbox);
-		user.setInbox(inbox);
-		userDao.addUser(user);
+//		
+//		List<Inbox> inbox = userDao.getUserInbox(user.getUsername());
+//		inboxDAO.addInbox((Inbox) inbox);
+//		user.setInbox(inbox);
+//		userDao.addUser(user);
 		
 		//department head
 		
@@ -211,11 +210,11 @@ public static void populateFormTable() {
 //		List<Form> form1 = userDao.getUserForms(user.getUsername());
 //		formDao.addForm((Form) form1);
 //		user.setForms(form1);
-		
-		List<Inbox> inbox1 = userDao.getUserInbox(user.getUsername());
-		inboxDAO.addInbox((Inbox) inbox1);
-		user.setInbox(inbox1);
-		userDao.addUser(user);
+//		
+//		List<Inbox> inbox1 = userDao.getUserInbox(user.getUsername());
+//		inboxDAO.addInbox((Inbox) inbox1);
+//		user.setInbox(inbox1);
+//		userDao.addUser(user);
 		
 		//DS
 		UUID userId3= UUID.randomUUID();
@@ -230,11 +229,11 @@ public static void populateFormTable() {
 //		
 //		List<Form> form2 = userDao.getUserForms(user.getUsername());
 //		formDao.addForm((Form) form2);
-//		user.setForms(form2);
-		List<Inbox> inbox2 = userDao.getUserInbox(user.getUsername());
-		inboxDAO.addInbox((Inbox) inbox2);
-		user.setInbox(inbox2);
-		userDao.addUser(user);
+////		user.setForms(form2);
+//		List<Inbox> inbox2 = userDao.getUserInbox(user.getUsername());
+//		inboxDAO.addInbox((Inbox) inbox2);
+//		user.setInbox(inbox2);
+//		userDao.addUser(user);
 		
 		//Employee
 		UUID userId4 = UUID.randomUUID();
@@ -250,10 +249,10 @@ public static void populateFormTable() {
 //		List<Form> form3 = userDao.getUserForms(user.getUsername());
 //		formDao.addForm((Form) form3);
 //		user.setForms(form3);
-		List<Inbox> inbox3 = userDao.getUserInbox(user.getUsername());
-		inboxDAO.addInbox((Inbox) inbox3);
-		user.setInbox(inbox3);
-		userDao.addUser(user);
+//		List<Inbox> inbox3 = userDao.getUserInbox(user.getUsername());
+//		inboxDAO.addInbox((Inbox) inbox3);
+//		user.setInbox(inbox3);
+//		userDao.addUser(user);
 	}
 	
 	
