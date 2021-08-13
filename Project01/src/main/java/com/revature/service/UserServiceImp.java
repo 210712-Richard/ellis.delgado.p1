@@ -3,6 +3,7 @@ package com.revature.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +37,10 @@ public class UserServiceImp implements UserService{
 	public User login(String username) {
 		User user = userDao.getUser(username);
 		
-		List<Form> forms = formDao.getUserForms(username);
+		List<UUID> formsId = userDao.getUserForms(username);
+		
+		List<Form> forms = formsId.stream().map(id -> formDao.getFormbyId(id))
+				.collect(Collectors.toList());
 		user.setForms(forms);
 		return user;
 	}

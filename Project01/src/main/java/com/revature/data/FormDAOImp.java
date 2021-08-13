@@ -147,5 +147,33 @@ public class FormDAOImp implements FormDAO{
 	
 		return f;
 	}
-
+	@Override
+	public Form getFormbyId(UUID formId) {
+		String query = "Select * from form_db where formId = ? ALLOW FILTERING";
+		
+		BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query).build()).bind(formId); 
+		ResultSet result = session.execute(boundStat);
+		
+		Row row = result.one();
+		if(row == null) {
+			return null;
+		}
+		Form f = new Form();
+		f.setFormId(row.getUuid("formId"));
+		f.setEmployee(row.getString("employee"));
+		f.setDate(row.getLocalDate("date"));
+		f.setDescription(row.getString("description"));
+		f.setCost(row.getInt("cost"));
+//		f.setType(ReimbursementType.valueOf(row.getString("type")));
+		f.setGrade(row.getString("grade"));
+		f.setEvent(new EventOp (row.getUuid("eventId"),
+				row.getLocalDate("startDate"), row.getString("type")
+				,row.getString("title"), row.getString("description")));
+		f.setFile(row.getString("file"));
+		f.setStatus(Status.valueOf(row.getString("status")));
+		f.setTimeMissed(row.getInt("timeMissed"));
+		f.setUrgency(row.getBoolean("urgency"));
+	
+		return f;
+	}
 }

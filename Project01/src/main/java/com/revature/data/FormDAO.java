@@ -12,6 +12,8 @@ public interface FormDAO {
 	
 	Form getFormbyEmployee(String employee);
 	
+	Form getFormbyId(UUID formId);
+	
 	void updateGrade(Form form);
 	
 	void updateStatus(Form form);

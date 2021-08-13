@@ -52,8 +52,8 @@ public class UserDAOImp implements UserDAO{
 
 	@Override
 	public List<User> getUsers() {
-		String query = "Select username, email, employeeId, userType, pending, approved, "
-			+ "forms, "
+		String query = "Select username, email, employeeId, userType, reimbursement, "
+//			+ "forms, "
 				+ "supervisor, departmentHead, benCo, inbox from user";
 		SimpleStatement simpStatement =  new SimpleStatementBuilder(query).build();
 		ResultSet results = session.execute(simpStatement);
@@ -66,7 +66,7 @@ public class UserDAOImp implements UserDAO{
 			user.setEmployeeId(row.getUuid("employeeId"));
 			user.setUserType(UserType.valueOf(row.getString("userType")));
 			user.setReimbursement(row.getLong("reimbursement"));
-			user.setForms(getUserForms("username"));
+//			user.setForms(getUserForms("username"));
 			user.setSupervisor(row.getString("supervisor"));
 			user.setDepartmentHead(row.getString("departmentHead"));
 			user.setBenCo(row.getString("benCo"));
@@ -80,7 +80,7 @@ public class UserDAOImp implements UserDAO{
 
 	@Override
 	public User getUser(String username) {
-		String query = "Select username, email, employeeId, userType, pending, approved, forms, supervisor, departmentHead, benCo, inbox from user where username=?";
+		String query = "Select username, email, employeeId, userType, reimbursement,  supervisor, departmentHead, benCo, inbox from user where username=?";
 		SimpleStatement simpStatement =  new SimpleStatementBuilder(query).build();
 		BoundStatement boundStatement = session.prepare(simpStatement).bind(username);	
 		ResultSet results = session.execute(boundStatement);
@@ -95,7 +95,7 @@ public class UserDAOImp implements UserDAO{
 		user.setEmployeeId(row.getUuid("employeeId"));
 		user.setUserType(UserType.valueOf(row.getString("userType")));
 		user.setReimbursement(row.getLong("reimbursement"));
-		user.setForms(getUserForms(username));
+//		user.setForms(getUserForms(username));
 		user.setSupervisor(row.getString("supervisor"));
 		user.setDepartmentHead(row.getString("departmentHead"));
 		user.setBenCo(row.getString("benCo"));
@@ -131,7 +131,7 @@ public class UserDAOImp implements UserDAO{
 	}
 
 	@Override
-	public List<Form> getUserForms(String username) {
+	public List<UUID> getUserForms(String username) {
 		String query = "Select forms from user where username = ?";
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query).build();
 		BoundStatement boundStatement = session.prepare(simpStatement).bind(username);
@@ -141,7 +141,7 @@ public class UserDAOImp implements UserDAO{
 		if(row == null) {
 			return null;
 		}
-		List<Form> forms = row.getList("forms", Form.class);
+		List<UUID> forms = row.getList("forms", UUID.class);
 		return forms;
 	}
 

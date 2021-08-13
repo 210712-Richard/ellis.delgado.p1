@@ -70,7 +70,7 @@ public class FormContImp implements FormController{
 	@Override
 	public void addFile(Context ctx) {
 	User loggedUser = ctx.sessionAttribute("loggedUser");
-	String fileName = ctx.pathParam("fileName");
+//	String fileName = ctx.pathParam("fileName");
 	
 	String userFile = formSer.getUserFile(loggedUser);
 		if(userFile == null) {
@@ -91,7 +91,7 @@ public class FormContImp implements FormController{
 			ctx.status(400);
 			return;
 		}
-		String key = fileName+ "."+ filetype;
+		String key = userFile+ "."+ filetype;
 		S3Util.getInstance().uploadToBucket(key, ctx.bodyAsBytes());
 		
 		formSer.addFile(loggedUser, key);

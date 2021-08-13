@@ -77,7 +77,7 @@ public class Driver {
 		//post
 		app.post("/users", uc::login);
 		app.post("/users/:username/newForm", fc::addForm);
-		app.post("/users/:username/newFile/:filename", fc::addFile);
+		app.post("/users/:username/newFile/", fc::addFile);
 		app.post("/users/:username/newEvent/:title/:type/:description/:year/:month/:day", uc::addEvent);
 		
 		//put

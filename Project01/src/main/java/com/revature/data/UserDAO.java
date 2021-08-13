@@ -1,6 +1,7 @@
 package com.revature.data;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.revature.beans.Form;
 import com.revature.beans.Inbox;
@@ -16,7 +17,7 @@ public interface UserDAO {
 	
 	void updateUser(User user);
 
-	List<Form> getUserForms(String username);
+	List<UUID> getUserForms(String username);
 
 	List<Inbox> getUserInbox(String username);
 	

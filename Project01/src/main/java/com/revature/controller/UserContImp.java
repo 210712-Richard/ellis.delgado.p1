@@ -25,6 +25,8 @@ public class UserContImp implements UserController{
 		User user = ctx.bodyAsClass(User.class);
 		log.debug(user);
 		
+		user = userSer.login(user.getUsername());
+		
 		if (user != null) {
 			ctx.sessionAttribute("loggedUser", user);
 			ctx.json(user);
