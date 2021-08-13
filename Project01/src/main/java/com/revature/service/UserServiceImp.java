@@ -55,22 +55,19 @@ public class UserServiceImp implements UserService{
 		User emp = userDao.getUser(employee);
 		Long currReimburse = emp.getReimbursement();
 		EventOp empEvent = eventDao.getEventbyTitleAndType(event, eventType);
+		Integer empCost = formDao.getFormbyEmployee(employee).getCost();
+		Integer maxTuition = 1000;
 		
-		if(eventType == "certification") {
-			
-		}else if (eventType == "university_courses") {
-			
-		}else if (eventType == "seminar") {
-			
-		}else if (eventType == "certification_prep") {
-			
-		}else if (eventType == "technical_training") {
-			
-		}
+		reimburseCalc(eventType, maxTuition, currReimburse, empCost);
+		
+		
+		
 		
 		
 		
 	}
+	
+	
 
 	@Override
 	public Inbox getUserInbox(User user) {
@@ -108,6 +105,68 @@ public class UserServiceImp implements UserService{
 		
 	}
 
+public Long reimburseCalc(String eventType, Integer maxTuition, Long currReimburse, Integer empCost) {
+		
+		Long newAmount = 0l;
 	
+		//certification
+		if(eventType == "certification") {
+			Integer coveredTuit = empCost * 1;
+			if (coveredTuit > maxTuition) {
+				coveredTuit = 1000;
+			}
+			newAmount += coveredTuit.longValue();
+			
+			//university_courses
+		}else if (eventType == "university_courses") {
+			Double coveredTuit = empCost * .8;
+			if (coveredTuit > maxTuition) {
+				coveredTuit = 1000.0;
+				
+			}
+			newAmount += coveredTuit.longValue();
+			
+			
+			//seminar
+		}else if (eventType == "seminar") {
+			Double coveredTuit = empCost * .6;
+					if (coveredTuit > maxTuition) {
+							coveredTuit = 1000.0;		
+					}
+					
+					newAmount += coveredTuit.longValue();
+				
+				
+				//certification prep
+		}else if (eventType == "certification_prep") {
+			Double coveredTuit = empCost * .75;
+					if (coveredTuit > maxTuition) {
+						coveredTuit = 1000.0;
+					}
+			newAmount += coveredTuit.longValue();
+			
+			
+			//technical_training
+		}else if (eventType == "technical_training") {
+			Double coveredTuit = empCost * .9;
+			if (coveredTuit > maxTuition) {
+				coveredTuit = 1000.0;
+				
+			}
+			newAmount += coveredTuit.longValue();;
+			
+			
+			//other
+		}else if (eventType == "other") {
+				Double coveredTuit = empCost * .3;
+				if (coveredTuit > maxTuition) {
+					coveredTuit = 1000.0;
+					
+				}
+				newAmount += coveredTuit.longValue();
+		}
+		return newAmount;
+		
+	}
 
 }
