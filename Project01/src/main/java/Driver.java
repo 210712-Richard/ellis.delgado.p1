@@ -4,6 +4,8 @@ import org.apache.logging.log4j.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.revature.controller.FormContImp;
+import com.revature.controller.FormController;
 import com.revature.controller.UserContImp;
 import com.revature.controller.UserController;
 import com.revature.factory.BeanFactory;
@@ -55,13 +57,34 @@ public class Driver {
 		
 		UserController uc = (UserController) BeanFactory.getFactory()
 				.get(UserController.class, UserContImp.class);
+		FormController fc = (FormController) BeanFactory.getFactory()
+				.get(FormController.class, FormContImp.class);
 		
-		app.get("/", (ctx)-> ctx.html("Hello world"));
-		
-		app.post("/users", uc::login);
-//		app.get("/user/:username/forms", uc::getForms);
-		app.put("/users/:username", uc::register);
+		//delete
 		app.delete("/users", uc::logout);
+		app.delete("/users/:username/byeForm", fc::deleteForm);
+		
+		//get
+		app.get("/", (ctx)-> ctx.html("Hello world"));
+		app.get("/users/:username/forms", fc::getForm);
+		app.get("/users/:username/file", fc::getFile);
+		app.get("/users/:username/inbox", uc::getInbox);
+		app.get("/users/:username/event/:title/:type", uc::getEvent);
+		
+		
+		
+		//post
+		app.post("/users", uc::login);
+		app.post("/users/:username/newForm", fc::addForm);
+		app.post("/users/:username/newFile", fc::addFile);
+		app.post("/newEvent", uc::addEvent);
+		
+		//put
+		app.put("/users/:username", uc::register);
+		app.put("/users/:username/:grade", fc::updateGrade);
+		app.put("/users/:username/:status", fc::updateStatus);
+		app.put("/users/:username/reimburse/:employee/:event/:type", uc::updateReim);
+		
 		
 		
 	}

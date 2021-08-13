@@ -115,7 +115,20 @@ public class UserContImp implements UserController{
 
 	@Override
 	public void updateReim(Context ctx) {
-		// TODO Auto-generated method stub
+		String username = ctx.pathParam("username");
+		
+		User loggedUser = (User) ctx.sessionAttribute("loggedUser");
+		if(loggedUser == null || !loggedUser.getUsername().equals(username)) {
+			log.error(loggedUser+ "not authorized");
+			ctx.status(403);
+		return; 
+		}
+		
+		String employee = ctx.pathParam("employee");
+		String event = ctx.pathParam("event");
+		String eventType = ctx.pathParam("type");
+		userSer.updateUserReimbursement(loggedUser, employee, event, eventType);
+		
 		
 	}
 

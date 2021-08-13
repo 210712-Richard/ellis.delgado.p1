@@ -14,7 +14,7 @@ public interface FormController {
 	
 	void deleteForm(Context ctx);
 	
-	void udpateGrade(Context ctx);
+	void updateGrade(Context ctx);
 	
 	void updateStatus(Context ctx);
 	

@@ -111,7 +111,7 @@ public class FormContImp implements FormController{
 	}
 
 	@Override
-	public void udpateGrade(Context ctx) {
+	public void updateGrade(Context ctx) {
 		User loggedUser = ctx.sessionAttribute("loggedUser");
 		
 		String grade = ctx.pathParam("grade");
