@@ -12,6 +12,7 @@ public interface InboxDAO {
 	UUID addInbox (Inbox inbox);
 	
 	public void updateAlert(Inbox inbox);
+
 	
 //	public void deleteByTitle();
 }

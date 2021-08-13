@@ -1,16 +1,24 @@
 package com.revature.service;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.revature.beans.AlertType;
 import com.revature.beans.EventOp;
 import com.revature.beans.Form;
 import com.revature.beans.Inbox;
+import com.revature.beans.Status;
 import com.revature.beans.User;
 import com.revature.beans.UserType;
 import com.revature.data.EventDAO;
 import com.revature.data.EventDAOImp;
 import com.revature.data.FormDAO;
 import com.revature.data.FormDAOImp;
+import com.revature.data.InboxDAO;
+import com.revature.data.InboxDAOImp;
 import com.revature.data.UserDAO;
 import com.revature.data.UserDAOImp;
 
@@ -18,6 +26,9 @@ public class UserServiceImp implements UserService{
 	public UserDAO userDao = new UserDAOImp();
 	public static FormDAO formDao = new FormDAOImp();
 	public static EventDAO eventDao = new EventDAOImp();
+	public static InboxDAO inboxDao = new InboxDAOImp();
+	
+	private static Logger log = LogManager.getLogger(UserServiceImp.class);
 	
 	
 	@Override
@@ -40,6 +51,7 @@ public class UserServiceImp implements UserService{
 		user.setDepartmentHead(departmentHead);
 		user.setBenCo(benCo);
 		
+		log.trace("User returned: "+ user);
 		return user;
 	}
 
@@ -55,53 +67,78 @@ public class UserServiceImp implements UserService{
 		User emp = userDao.getUser(employee);
 		Long currReimburse = emp.getReimbursement();
 		EventOp empEvent = eventDao.getEventbyTitleAndType(event, eventType);
-		Integer empCost = formDao.getFormbyEmployee(employee).getCost();
+		Form empForm = formDao.getFormbyEmployee(employee);
+		Integer empCost = empForm.getCost();
+		String empGrade = empForm.getGrade();
+		
 		Integer maxTuition = 1000;
 		
-		reimburseCalc(eventType, maxTuition, currReimburse, empCost);
+		if (empGrade.equals("A") || empGrade.equals("B")) {
+			log.trace("Calculating Tuition");
+			Long newAmount = reimburseCalc(eventType, maxTuition, currReimburse, empCost);
+			emp.setReimbursement(newAmount);
+			empForm.setStatus(Status.Approved);	
+			empForm.setDescription("Congratulations! Amount awarded: " + newAmount.toString());
 		
+		}else {
+			log.trace("Deny statement");
+			empForm.setStatus(Status.Denied);
+			empForm.setDescription("Unfortunately you did not met the requirements for a reimbursement. "
+					+ "Please try again at a later date");
+			
+		}
+	
 		
-		
-		
-		
+	
 		
 	}
 	
 	
 
 	@Override
-	public Inbox getUserInbox(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Inbox> getUserInbox(User user) {
+		String username = user.getUsername();
+		
+		
+		List<Inbox> inbox = inboxDao.getInbox(username);
+		user.setInbox(inbox);
+		
+		return inbox;
+	}
+
+
+	@Override
+	public void updateSupervisor(User user, String employee) {
+		user.setSupervisor(employee);
 	}
 
 	@Override
-	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
+	public void updateDepHead(User user, String employee) {
+		user.setDepartmentHead(employee);
 		
 	}
 
 	@Override
-	public void updateSupervisor(User user) {
-		// TODO Auto-generated method stub
+	public void updateBenCo(User user, String employee) {
+		user.setBenCo(employee);
 		
 	}
 
 	@Override
-	public void updateDepHead(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateBenCo(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateInbox(User user) {
-		// TODO Auto-generated method stub
+	public void updateInbox(User user, String title, String message) {
+	
+	
+	Inbox newMessage = new Inbox();
+	UUID inboxId = UUID.randomUUID();
+	newMessage.setMessageId(inboxId);
+	newMessage.setAlert(AlertType.Urgent);
+	newMessage.setTitle(title);
+	newMessage.setMessage(message);
+	
+	inboxDao.addInbox(newMessage);
+//	user.setInbox((List<Inbox>) newMessage);
+	List<Inbox> userInbox = inboxDao.getInbox(user.getUsername());
+	userInbox.add(newMessage);
 		
 	}
 
@@ -143,7 +180,7 @@ public Long reimburseCalc(String eventType, Integer maxTuition, Long currReimbur
 					if (coveredTuit > maxTuition) {
 						coveredTuit = 1000.0;
 					}
-			newAmount += coveredTuit.longValue();
+					newAmount += coveredTuit.longValue();
 			
 			
 			//technical_training
@@ -153,7 +190,7 @@ public Long reimburseCalc(String eventType, Integer maxTuition, Long currReimbur
 				coveredTuit = 1000.0;
 				
 			}
-			newAmount += coveredTuit.longValue();;
+			newAmount += coveredTuit.longValue();
 			
 			
 			//other

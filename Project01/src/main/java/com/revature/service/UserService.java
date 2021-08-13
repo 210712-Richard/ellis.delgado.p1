@@ -1,5 +1,7 @@
 package com.revature.service;
 
+import java.util.List;
+
 //import java.util.List;
 
 //import com.revature.beans.Form;
@@ -15,17 +17,15 @@ public interface UserService {
 	
 	void updateUserReimbursement(User user, String employee, String event, String eventType);
 	
-	Inbox getUserInbox(User user);
+	List<Inbox> getUserInbox(User user);
 	
-	void deleteUser(User user);
+	void updateSupervisor(User user, String employee);
 	
-	void updateSupervisor(User user);
+	void updateDepHead(User user, String employee);
 	
-	void updateDepHead(User user);
+	void updateBenCo(User user, String employee);
 	
-	void updateBenCo(User user);
-	
-	void updateInbox(User user);
+	void updateInbox(User user, String title, String message);
 	
 	
 	
