@@ -6,10 +6,11 @@ import com.revature.beans.Form;
 import com.revature.beans.Status;
 import com.revature.beans.User;
 import com.revature.data.*;
+import com.revature.factory.BeanFactory;
 
 public class FormServiceImp implements FormService {
 	
-	public static FormDAO formDao = new FormDAOImp();
+	private FormDAO formDao = (FormDAO) BeanFactory.getFactory().get(FormDAO.class, FormDAOImp.class);
 	
 	@Override
 	public List<Form> getForms(User user) {
