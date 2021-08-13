@@ -13,7 +13,7 @@ public interface UserService {
 	User register (String username, String email, String userType,
 			String supervisor, String departmentHead, String benCo);
 	
-	void updateUserReimbursement(User user);
+	void updateUserReimbursement(User user, String employee, String event, String eventType);
 	
 	Inbox getUserInbox(User user);
 	

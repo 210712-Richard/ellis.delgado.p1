@@ -51,7 +51,7 @@ public class DatabaseCreator {
 		//form_db.
 			 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS form_db(")
 					.append("formId uuid, employee text, date date, ")
-					.append("description text, cost text, type text, grade text, event text, file text,")
+					.append("description text, cost text, grade text, event text, file text,")
 					.append("status text, timeMissed text, urgency text, primary key (formId, employee));");
 				CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 				log.trace("Form table built");
@@ -92,25 +92,30 @@ public static void populateFormTable() {
 				+ "/uploads/2019/10/support-form-example-540x600.png";
 		Status status = Status.Pending;
 		
+		
 
 		Form form = new Form(formId, "Logan", date, "Example",
 				null, "B", event, file, status, 0, true  );
 		form.setCost(500);
+		form.setUrgency(true);
 		formDao.addForm(form);
 		
 		 form = new Form(formId, "Scott", date, "Example",
 				null, "B", event, file, status, 0, true  );
 		 form.setCost(500);
+		 form.setUrgency(true);
 		formDao.addForm(form);
 		
 		 form = new Form(formId, "Jean", date, "Example",
 				null, "B", event, file, status, 0, true  );
 		 form.setCost(500);
+		 form.setUrgency(true);
 		formDao.addForm(form);
 		
 		 form = new Form(formId, "Xavier", date, "Example",
 				null, "B", event, file, status, 0, true  );
 		 form.setCost(500);
+		 form.setUrgency(true);
 		formDao.addForm(form);
 		
 	}

@@ -10,6 +10,8 @@ public interface FormDAO {
 	
 	UUID addForm(Form form); 
 	
+	Form getFormbyEmployee(String employee);
+	
 	void updateGrade(Form form);
 	
 	void updateStatus(Form form);
