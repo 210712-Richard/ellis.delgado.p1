@@ -115,7 +115,7 @@ public static void populateFormTable() {
 		form.setUrgency(true);
 		form.setTimeMissed(timeMiss);
 		
-		
+		System.out.println(form);
 		formDao.addForm(form);
 		
 		 form = new Form();
@@ -181,7 +181,7 @@ public static void populateFormTable() {
 		UUID userId = UUID.randomUUID();
 		User user = new User();
 		user.setUserType(UserType.Benefits_Coordinator);
-		user.setUsername("Xaiver");
+		user.setUsername("Xavier");
 		user.setEmail("profx@gmail.com");
 		user.setEmployeeId(userId);
 		user.setSupervisor(null);

@@ -92,7 +92,8 @@ public class FormDAOImp implements FormDAO{
 	@Override
 	public UUID addForm(Form form) {
 		String query = "Insert into form_db (formId, employee, date, description, cost, "
-		+ "grade, event, file, status, timeMissed, urgency) values  (?,  ? ,?, ?, ? ,? ,?,?,?,?,?);";
+		+ "grade, "
+		+ "event, file, status, timeMissed, urgency) values  (?,  ? ,?, ?, ? ,? ,?,?,?,?,?);";
 	
 		UUID formId = UUID.randomUUID();
 		
@@ -137,7 +138,7 @@ public class FormDAOImp implements FormDAO{
 		f.setCost(row.getInt("cost"));
 //		f.setType(ReimbursementType.valueOf(row.getString("type")));
 		f.setGrade(row.getString("grade"));
-//		f.setEvent();
+		f.setEvent(null);
 		f.setStatus(Status.valueOf(row.getString("status")));
 		f.setTimeMissed(row.getInt("timeMissed"));
 		f.setUrgency(row.getBoolean("urgency"));

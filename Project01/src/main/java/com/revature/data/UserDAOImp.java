@@ -36,16 +36,18 @@ public class UserDAOImp implements UserDAO{
 		log.trace("Adding User");
 		String query = "Insert into user (username, email, employeeId, userType, "
 				+ "reimbursement,  "
-				+ "supervisor, departmentHead, benCo,) values ( ?, ?, "
+				+ "supervisor, departmentHead, benCo) values ( ?, ?, "
 				+ "?, ?, ?, ?, ?, ?);";
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query)
 				.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStatement = session.prepare(simpStatement)
 				.bind(user.getUsername(), user.getEmail(), user.getEmployeeId(), user.getUserType().toString(), 
 						user.getReimbursement(), 
-						user.getForms(),
+//						user.getForms(),
 						user.getSupervisor(),
-						user.getDepartmentHead(), user.getBenCo(), user.getInbox());
+						user.getDepartmentHead(),
+						user.getBenCo()); 
+//						user.getInbox());
 		session.execute(boundStatement);
 			
 	}

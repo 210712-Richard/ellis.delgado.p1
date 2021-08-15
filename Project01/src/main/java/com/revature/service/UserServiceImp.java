@@ -38,7 +38,9 @@ public class UserServiceImp implements UserService{
 		User user = userDao.getUser(username);
 		
 		List<UUID> formsId = userDao.getUserForms(username);
-		
+		if (formsId == null) {
+			return user;
+		}
 		List<Form> forms = formsId.stream().map(id -> formDao.getFormbyId(id))
 				.collect(Collectors.toList());
 		user.setForms(forms);

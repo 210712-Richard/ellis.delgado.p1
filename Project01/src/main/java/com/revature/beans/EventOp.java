@@ -17,13 +17,12 @@ public class EventOp implements Serializable{
 	String title; 
 	String description;
 	
-	public EventOp(UUID eventId) {
+	public EventOp() {
 		super();
-		this.eventId = eventId;
 		
 	}
-	public EventOp( LocalDate startDate, String type, String title, String description) {
-		
+	public EventOp(UUID eventId, LocalDate startDate, String type, String title, String description) {
+		this.eventId = eventId;
 		this.startDate= startDate;
 		this.type = type;
 		this.title = title;
