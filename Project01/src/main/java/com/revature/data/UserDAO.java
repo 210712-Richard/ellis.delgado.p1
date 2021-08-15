@@ -19,6 +19,6 @@ public interface UserDAO {
 
 	List<UUID> getUserForms(String username);
 
-	List<Inbox> getUserInbox(String username);
+	List<UUID> getUserInbox(String username);
 	
 }

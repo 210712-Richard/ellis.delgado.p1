@@ -35,8 +35,8 @@ public class UserDAOImp implements UserDAO{
 	public void addUser(User user) {
 		log.trace("Adding User");
 		String query = "Insert into user (username, email, employeeId, userType, "
-				+ "reimbursement, forms, "
-				+ "supervisor, departmentHead, benCo, inbox) values (?, ?, ?, ?, "
+				+ "reimbursement,  "
+				+ "supervisor, departmentHead, benCo,) values ( ?, ?, "
 				+ "?, ?, ?, ?, ?, ?);";
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query)
 				.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
@@ -71,7 +71,7 @@ public class UserDAOImp implements UserDAO{
 			user.setDepartmentHead(row.getString("departmentHead"));
 			user.setBenCo(row.getString("benCo"));
 			//change once inbox is done
-			user.setInbox(getUserInbox(user.getUsername().toString()));
+//			user.setInbox(getUserInbox(user.getUsername().toString()));
 			
 			users.add(user);
 		});
@@ -80,7 +80,7 @@ public class UserDAOImp implements UserDAO{
 
 	@Override
 	public User getUser(String username) {
-		String query = "Select username, email, employeeId, userType, reimbursement,  supervisor, departmentHead, benCo, inbox from user where username=?";
+		String query = "Select username, email, employeeId, userType, reimbursement,  supervisor, departmentHead, benCo from user where username=?";
 		SimpleStatement simpStatement =  new SimpleStatementBuilder(query).build();
 		BoundStatement boundStatement = session.prepare(simpStatement).bind(username);	
 		ResultSet results = session.execute(boundStatement);
@@ -100,7 +100,7 @@ public class UserDAOImp implements UserDAO{
 		user.setDepartmentHead(row.getString("departmentHead"));
 		user.setBenCo(row.getString("benCo"));
 		//change once inbox is done
-		user.setInbox(getUserInbox(username));
+//		user.setInbox(getUserInbox(username));
 		
 		return user;
 	}
@@ -146,7 +146,7 @@ public class UserDAOImp implements UserDAO{
 	}
 
 	@Override
-	public List<Inbox> getUserInbox(String username) {
+	public List<UUID> getUserInbox(String username) {
 		String query = "Select inbox from user where username = ?";
 		
 		SimpleStatement simpStatement = new SimpleStatementBuilder(query).build();
@@ -157,7 +157,7 @@ public class UserDAOImp implements UserDAO{
 		if(row == null) {
 			return null;
 		}
-		List<Inbox> inbox = row.getList("inbox", Inbox.class);
+		List<UUID> inbox = row.getList("inbox", UUID.class);
 		return inbox;
 	
 	}
