@@ -50,7 +50,7 @@ public class FormDAOImp implements FormDAO{
 			f.setFile(row.getString("file"));
 			f.setStatus(Status.valueOf(row.getString("status")));
 			f.setTimeMissed(row.getInt("timeMissed"));
-			f.setUrgency(row.getBoolean("urgency"));
+			f.setUrgency(row.getString("urgency"));
 		
 			forms.add(f);
 		
@@ -141,7 +141,7 @@ public class FormDAOImp implements FormDAO{
 		f.setEvent(null);
 		f.setStatus(Status.valueOf(row.getString("status")));
 		f.setTimeMissed(row.getInt("timeMissed"));
-		f.setUrgency(row.getBoolean("urgency"));
+		f.setUrgency(row.getString("urgency"));
 	
 		return f;
 	}
@@ -170,7 +170,7 @@ public class FormDAOImp implements FormDAO{
 		f.setFile(row.getString("file"));
 		f.setStatus(Status.valueOf(row.getString("status")));
 		f.setTimeMissed(row.getInt("timeMissed"));
-		f.setUrgency(row.getBoolean("urgency"));
+		f.setUrgency(row.getString("urgency"));
 	
 		return f;
 	}

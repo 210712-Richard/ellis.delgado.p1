@@ -23,7 +23,7 @@ public class Form implements FormInt{
 	public String file;
 	public Status status;
 	public Integer timeMissed;
-	public Boolean urgency;
+	public String urgency;
 	public Form() {
 		super();
 		this.cost=0;
@@ -31,7 +31,7 @@ public class Form implements FormInt{
 	public Form(UUID formId, String employee, LocalDate date, 
 			 String description, Integer Cost, String grade, 
 			 EventOp event, String file, 
-			Status status, Integer timeMissed, Boolean urgency) {
+			Status status, Integer timeMissed, String urgency) {
 		this.formId = formId;
 		this.employee = employee;
 		this.date = date;
@@ -108,10 +108,10 @@ public class Form implements FormInt{
 	public void setTimeMissed(Integer timeMissed) {
 		this.timeMissed = timeMissed;
 	}
-	public Boolean getUrgency() {
+	public String getUrgency() {
 		return urgency;
 	}
-	public void setUrgency(Boolean urgency) {
+	public void setUrgency(String urgency) {
 		this.urgency = urgency;
 	}
 	public UUID getFormId() {
@@ -145,6 +145,7 @@ public class Form implements FormInt{
 				+ ", cost=" + cost + ", grade=" + grade + ", event=" + event + ", file=" + file + ", status=" + status
 				+ ", timeMissed=" + timeMissed + ", urgency=" + urgency + "]";
 	}
+	
 	
 	
 }

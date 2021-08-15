@@ -17,7 +17,7 @@ public class Driver {
 	private static Logger log = LogManager.getLogger(Driver.class);
 	
 	public static void main (String[] args) {
-		startDatabase();
+		//startDatabase();
 		javalin();
 	
 	}

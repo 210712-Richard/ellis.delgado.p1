@@ -37,8 +37,8 @@ public interface FormInt extends Serializable{
 	
 	void setTimeMissed(Integer timeMissed);
 	
-	Boolean getUrgency();
-	void setUrgency(Boolean urgency);
+	String getUrgency();
+	void setUrgency(String urgency);
 	
 	UUID getFormId();
 	void setFormId(UUID formId);

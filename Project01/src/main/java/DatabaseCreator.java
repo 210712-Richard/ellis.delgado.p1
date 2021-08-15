@@ -112,7 +112,7 @@ public static void populateFormTable() {
 		form.setEvent(event);
 		form.setFile(file);
 		form.setStatus(status);
-		form.setUrgency(true);
+		form.setUrgency("true");
 		form.setTimeMissed(timeMiss);
 		
 		System.out.println(form);
@@ -128,7 +128,7 @@ public static void populateFormTable() {
 			form.setEvent(event);
 			form.setFile(file);
 			form.setStatus(status);
-			form.setUrgency(true);
+			form.setUrgency("true");
 			form.setTimeMissed(timeMiss);
 		formDao.addForm(form);
 		
@@ -142,7 +142,7 @@ public static void populateFormTable() {
 			form.setEvent(event);
 			form.setFile(file);
 			form.setStatus(status);
-			form.setUrgency(true);
+			form.setUrgency("true");
 			form.setTimeMissed(timeMiss);
 		formDao.addForm(form);
 		
@@ -156,7 +156,7 @@ public static void populateFormTable() {
 			form.setEvent(event);
 			form.setFile(file);
 			form.setStatus(status);
-			form.setUrgency(true);
+			form.setUrgency("true");
 			form.setTimeMissed(timeMiss);
 			
 			
