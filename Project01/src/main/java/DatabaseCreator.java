@@ -50,7 +50,9 @@ public class DatabaseCreator {
 				
 		//form_db.
 			 stringBuild = new StringBuilder("CREATE TABLE IF NOT EXISTS form_db(")
-					.append("formId uuid, employee text, date date, description text, cost int, grade text, event text, file text,")
+					.append("formId uuid, employee text, date date, description text, cost int, grade text, "
+//							+ "event text, "
+							+ "file text,")
 					.append("status text, timeMissed int, urgency text, primary key (formId, employee));");
 				CassandraUtil.getInstance().getSession().execute(stringBuild.toString());
 				log.trace("Form table built");
@@ -109,7 +111,7 @@ public static void populateFormTable() {
 		form.setDescription("example");
 		form.setCost(cost);
 		form.setGrade("B");
-		form.setEvent(event);
+//		form.setEvent(event);
 		form.setFile(file);
 		form.setStatus(status);
 		form.setUrgency("true");
@@ -125,7 +127,7 @@ public static void populateFormTable() {
 			form.setDescription("example");
 			form.setCost(cost);
 			form.setGrade("B");
-			form.setEvent(event);
+//			form.setEvent(event);
 			form.setFile(file);
 			form.setStatus(status);
 			form.setUrgency("true");
@@ -139,7 +141,7 @@ public static void populateFormTable() {
 			form.setDescription("example");
 			form.setCost(cost);
 			form.setGrade("B");
-			form.setEvent(event);
+//			form.setEvent(event);
 			form.setFile(file);
 			form.setStatus(status);
 			form.setUrgency("true");
@@ -153,7 +155,7 @@ public static void populateFormTable() {
 			form.setDescription("example");
 			form.setCost(cost);
 			form.setGrade("B");
-			form.setEvent(event);
+//			form.setEvent(event);
 			form.setFile(file);
 			form.setStatus(status);
 			form.setUrgency("true");

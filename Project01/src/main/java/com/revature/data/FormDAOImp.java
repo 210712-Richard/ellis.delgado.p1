@@ -93,14 +93,18 @@ public class FormDAOImp implements FormDAO{
 	public UUID addForm(Form form) {
 		String query = "Insert into form_db (formId, employee, date, description, cost, "
 		+ "grade, "
-		+ "event, file, status, timeMissed, urgency) values  (?,  ? ,?, ?, ? ,? ,?,?,?,?,?);";
+//		+ "event,"
+		+ " file, status, timeMissed, urgency) values  (?,  ? ,?, ?, ? ,? ,"
+//		+ "?,"
+		+ "?,?,?,?);";
 	
 		UUID formId = UUID.randomUUID();
 		
 		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)
 				.bind(formId, form.getEmployee(), form.getDate(), form.getDescription(),form.getCost(), 
-						form.getGrade(), form.getEvent().toString(), 
+						form.getGrade(),
+//						form.getEvent().toString(), 
 						form.getFile().toString(), form.getStatus().toString(), form.getTimeMissed(), form.getUrgency().toString() );
 		session.execute(boundStat);
 		
@@ -138,7 +142,7 @@ public class FormDAOImp implements FormDAO{
 		f.setCost(row.getInt("cost"));
 //		f.setType(ReimbursementType.valueOf(row.getString("type")));
 		f.setGrade(row.getString("grade"));
-		f.setEvent(null);
+//		f.setEvent(null);
 		f.setStatus(Status.valueOf(row.getString("status")));
 		f.setTimeMissed(row.getInt("timeMissed"));
 		f.setUrgency(row.getString("urgency"));
@@ -164,9 +168,9 @@ public class FormDAOImp implements FormDAO{
 		f.setCost(row.getInt("cost"));
 //		f.setType(ReimbursementType.valueOf(row.getString("type")));
 		f.setGrade(row.getString("grade"));
-		f.setEvent(new EventOp (row.getUuid("eventId"),
-				row.getLocalDate("startDate"), row.getString("type")
-				,row.getString("title"), row.getString("description")));
+//		f.setEvent(new EventOp (row.getUuid("eventId"),
+//				row.getLocalDate("startDate"), row.getString("type")
+//				,row.getString("title"), row.getString("description")));
 		f.setFile(row.getString("file"));
 		f.setStatus(Status.valueOf(row.getString("status")));
 		f.setTimeMissed(row.getInt("timeMissed"));
