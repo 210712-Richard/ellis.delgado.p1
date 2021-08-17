@@ -83,9 +83,9 @@ public class Driver {
 		//put
 		app.put("/users/:username", uc::register);
 		app.put("/users/:username/:grade", fc::updateGrade);
-		app.put("/users/:username/:status", fc::updateStatus);
+		//app.put("/users/:username/:status", fc::updateStatus);
 		app.put("/users/:username/reimburse/:employee/:event/:type", uc::updateReim);
-		
+		app.put("/users/:username/formStatus/:employee", uc :: updateFormStatus);
 		
 		
 	}

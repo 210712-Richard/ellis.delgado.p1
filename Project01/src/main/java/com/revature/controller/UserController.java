@@ -17,5 +17,7 @@ public interface UserController {
 		void addEvent(Context ctx);
 		
 		void updateReim(Context ctx);
+
+		void updateFormStatus(Context ctx);
 		
 }

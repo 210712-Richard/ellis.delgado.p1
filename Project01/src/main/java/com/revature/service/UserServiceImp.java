@@ -61,7 +61,43 @@ public class UserServiceImp implements UserService{
 		log.trace("User returned: "+ user);
 		return user;
 	}
+	
+	
+	
+	@Override
+	public void updateFormStatus(User user, String employee) {
+		User loggedUser = user;
+		
+		if (userDao.getUser(employee).getUserType().equals(UserType.Employee) 
+				&& !loggedUser.getUserType().equals(UserType.Direct_Supervisor)) {
+			log.error("Logged user unauthorized");
+			return;
+		}
+		if (userDao.getUser(employee).getUserType().equals(UserType.Direct_Supervisor) 
+				&& !loggedUser.getUserType().equals(UserType.Department_Head)) {
+			log.error("Logged user unauthorized");
+			return;
+		}
+		if (userDao.getUser(employee).getUserType().equals(UserType.Department_Head) 
+				&& !loggedUser.getUserType().equals(UserType.Benefits_Coordinator)) {
+			log.error("Logged user unauthorized");
+			return;
+		}
+		
+	
+		//checking if grades are to standard
+	try {	
+		Form empForm = formDao.getFormbyEmployee(employee);
+		String empGrade = empForm.getGrade();
+		gradeCheck(empGrade, empForm);
+		log.trace("Form status: "+ empForm.getStatus());
+		}catch(Exception e) {
+			log.error("Failed to change status: " + e);
+		}
+	}
 
+	
+	
 	@Override
 	public void updateUserReimbursement(User user, String employee, String event, String eventType) {
 		User loggedUser = user; 
@@ -80,16 +116,17 @@ public class UserServiceImp implements UserService{
 		
 		Integer maxTuition = 1000;
 		
-		if (empGrade.equals("A") || empGrade.equals("B")) {
+		log.trace("Employee form status: "+ empForm.getStatus());
+		
+		if (empForm.getStatus().equals(Status.Approved)) {
 			log.trace("Calculating Tuition");
 			Long newAmount = reimburseCalc(eventType, maxTuition, currReimburse, empCost);
 			emp.setReimbursement(newAmount);
-			empForm.setStatus(Status.Approved);	
 			empForm.setDescription("Congratulations! Amount awarded: " + newAmount.toString());
-		
+			log.trace("New amount: "+ newAmount);
+			log.trace("Employee reimbursement"+emp.getReimbursement());
 		}else {
 			log.trace("Deny statement");
-			empForm.setStatus(Status.Denied);
 			empForm.setDescription("Unfortunately you did not met the requirements for a reimbursement. "
 					+ "Please try again at a later date");
 			
@@ -99,6 +136,7 @@ public class UserServiceImp implements UserService{
 	
 		
 	}
+	
 	
 	
 
@@ -171,8 +209,22 @@ public class UserServiceImp implements UserService{
 		return newEvent;
 	}
 	
+	public void gradeCheck(String grade, Form form) {
+		if (grade.equals("A") || grade.equals("B") ) {
+			log.trace("Calculating Tuition");
+			form.setStatus(Status.Approved);	
+		
+		}else {
+			log.trace("Deny statement");
+			form.setStatus(Status.Denied);
 	
-public Long reimburseCalc(String eventType, Integer maxTuition, Long currReimburse, Integer empCost) {
+		}
+		
+	}
+	
+	
+	public Long reimburseCalc(String eventType, Integer maxTuition, 
+			Long currReimburse, Integer empCost) {
 		
 		Long newAmount = 0l;
 	

@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -131,6 +132,15 @@ public class UserContImp implements UserController{
 		String eventType = ctx.pathParam("type");
 		userSer.updateUserReimbursement(loggedUser, employee, event, eventType);
 		
+		
+	}
+	@Override
+	public void updateFormStatus(Context ctx) {
+		User loggedUser = (User) ctx.sessionAttribute("loggedUser");
+		String employee = ctx.pathParam("employee");
+		;
+		
+		userSer.updateFormStatus(loggedUser, employee);
 		
 	}
 
