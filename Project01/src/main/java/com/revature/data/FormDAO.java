@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.revature.beans.Form;
+import com.revature.beans.Status;
 
 public interface FormDAO {
 	List<Form> getUserForms(String employee);
@@ -16,11 +17,13 @@ public interface FormDAO {
 	
 	void updateGrade(Form form);
 	
-	void updateStatus(Form form);
+//	void updateStatus(Form form);
 	
 	void deleteForm(Form form); 
 	
 	void updateFile(Form form);
+
+	void updateStatus(Form form, Status status, String employee);
 	
 	
 }

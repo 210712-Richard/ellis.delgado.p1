@@ -71,11 +71,11 @@ public class FormDAOImp implements FormDAO{
 		session.execute(boundStat);
 	}
 	@Override
-	public void updateStatus(Form form){
-		String query = "update form_db set  status = ? where formId = ?;";
+	public void updateStatus(Form form, Status status, String employee){
+		String query = "update form_db set  status = ? where formId = ? and employee = ?;";
 		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
 		BoundStatement boundStat = session.prepare(simpState)
-				.bind(form.getStatus(), form.getFormId());
+				.bind(status.toString(), form.getFormId(), form.getEmployee());
 		session.execute(boundStat);
 	}
 

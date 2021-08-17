@@ -89,7 +89,7 @@ public class UserServiceImp implements UserService{
 	try {	
 		Form empForm = formDao.getFormbyId(formId);
 		String empGrade = empForm.getGrade();
-		gradeCheck(empGrade, empForm);
+		gradeCheck(empGrade, empForm, employee);
 		log.trace("Form status: "+ empForm.getStatus());
 		return;
 		}catch(Exception e) {
@@ -208,14 +208,15 @@ public class UserServiceImp implements UserService{
 		return newEvent;
 	}
 	
-	public void gradeCheck(String grade, Form form) {
+	public void gradeCheck(String grade, Form form, String employee) {
 		if (grade.equals("A") || grade.equals("B") ) {
 			log.trace("Grade passed");
-			form.setStatus(Status.Approved);	
-		
+			formDao.updateStatus(form, Status.Approved, employee);
+			
 		}else {
 			log.trace("Deny statement");
-			form.setStatus(Status.Denied);
+			formDao.updateStatus(form, Status.Denied, employee);
+			
 	
 		}
 		
