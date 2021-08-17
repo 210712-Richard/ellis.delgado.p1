@@ -131,6 +131,17 @@ public class UserDAOImp implements UserDAO{
 						user.getDepartmentHead(), user.getBenCo(), forms, inbox);
 		session.execute(boundStatement);
 	}
+	@Override 
+	public void updateUserReim(Long amount, User user) {
+		String query = "update user set  reimbursement = ? where username = ?;";
+		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
+		BoundStatement boundStat = session.prepare(simpState)
+				.bind(amount, user.getUsername());
+		
+		log.trace(user);
+		session.execute(boundStat);
+	
+	}
 
 	@Override
 	public List<UUID> getUserForms(String username) {

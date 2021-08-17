@@ -19,6 +19,8 @@ public interface FormDAO {
 	
 //	void updateStatus(Form form);
 	
+	void updateDescription(Form form, String employee, String description);
+	
 	void deleteForm(Form form); 
 	
 	void updateFile(Form form);

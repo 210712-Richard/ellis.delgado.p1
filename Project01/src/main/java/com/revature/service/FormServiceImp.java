@@ -51,13 +51,7 @@ public class FormServiceImp implements FormService {
 		
 	}
 
-	@Override
-	public void updateStatus(User user, Status status) {
-		String username = user.getUsername();
-		Form form = formDao.getFormbyEmployee(username);
-		form.setStatus(status);
-		
-	}
+	
 
 	@Override
 	public void deleteForm(Form form) {

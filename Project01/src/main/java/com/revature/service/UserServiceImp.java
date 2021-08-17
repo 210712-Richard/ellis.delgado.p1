@@ -123,15 +123,15 @@ public class UserServiceImp implements UserService{
 		if (empForm.getStatus().equals(Status.Approved)) {
 			log.trace("Calculating Tuition");
 			Long newAmount = reimburseCalc(eventType, maxTuition, currReimburse, empCost);
-			emp.setReimbursement(newAmount);
-			empForm.setDescription("Congratulations! Amount awarded: " + newAmount.toString());
-			log.trace("New amount: "+ newAmount);
-			log.trace("Employee reimbursement"+emp.getReimbursement());
+			userDao.updateUserReim(newAmount, emp);
+			String description = ("Congratulations! Amount awarded: " + newAmount.toString());
+			formDao.updateDescription(empForm, employee, description);
+			
 		}else {
 			log.trace("Deny statement");
-			empForm.setDescription("Unfortunately you did not met the requirements for a reimbursement. "
+			String description = ("Unfortunately you did not met the requirements for a reimbursement. "
 					+ "Please try again at a later date");
-			
+			formDao.updateDescription(empForm, employee, description);
 		}
 		
 	}

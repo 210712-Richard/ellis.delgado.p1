@@ -18,7 +18,6 @@ List<Form> getForms(User user);
 	
 	void updateGrade(User user, String userGrade);
 	
-	void updateStatus(User user, Status status);
 	
 //	void deleteForm(User user);
 	void deleteForm(Form form);

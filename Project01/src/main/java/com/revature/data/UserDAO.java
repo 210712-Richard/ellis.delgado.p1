@@ -16,6 +16,8 @@ public interface UserDAO {
 	User getUser(String username);
 	
 	void updateUser(User user);
+	
+	void updateUserReim(Long amount, User user);
 
 	List<UUID> getUserForms(String username);
 
