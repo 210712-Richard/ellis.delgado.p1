@@ -82,9 +82,10 @@ public class FormDAOImp implements FormDAO{
 	@Override
 	public void deleteForm(Form form) {
 	String query = "Delete from form_db where formId = ?";
-	
+	UUID formId = form.getFormId();
+	log.trace("Deleting this form: "+ formId);
 	BoundStatement boundStat = session.prepare(new SimpleStatementBuilder(query)
-			.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build()).bind(form.getFormId());
+			.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build()).bind(formId);
 	session.execute(boundStat);
 		
 	}
@@ -92,20 +93,20 @@ public class FormDAOImp implements FormDAO{
 	@Override
 	public UUID addForm(Form form) {
 		String query = "Insert into form_db (formId, employee, date, description, cost, "
-		+ "grade, "
-//		+ "event,"
-		+ " file, status, timeMissed, urgency) values  (?,  ? ,?, ?, ? ,? ,"
-//		+ "?,"
-		+ "?,?,?,?);";
+		+ "grade, file, status, timeMissed, urgency) values  (?,  ? ,?, ?, ? ,? ,?,?,?,?);";
 	
+
 		UUID formId = UUID.randomUUID();
+		log.trace("New formId: "+ formId);
 		
-		SimpleStatement simpState = new SimpleStatementBuilder(query).setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
+		SimpleStatement simpState = new SimpleStatementBuilder(query)
+				.setConsistencyLevel(DefaultConsistencyLevel.LOCAL_QUORUM).build();
+		
 		BoundStatement boundStat = session.prepare(simpState)
 				.bind(formId, form.getEmployee(), form.getDate(), form.getDescription(),form.getCost(), 
-						form.getGrade(),
-//						form.getEvent().toString(), 
-						form.getFile().toString(), form.getStatus().toString(), form.getTimeMissed(), form.getUrgency().toString() );
+						form.getGrade(),form.getFile().toString(), form.getStatus().toString(), 
+						form.getTimeMissed(), form.getUrgency().toString() );
+		
 		session.execute(boundStat);
 		
 		return formId;

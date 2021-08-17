@@ -107,7 +107,8 @@ public class FormContImp implements FormController{
 			ctx.status(401);
 			return;
 		}
-		formSer.deleteForm(loggedUser);
+		Form userForm = formSer.getEmployeeForm(loggedUser);
+		formSer.deleteForm(userForm);
 	}
 
 	@Override

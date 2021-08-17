@@ -37,7 +37,9 @@ public interface UserService {
 	
 	EventOp addEvent(String title, String type, LocalDate startDate, String description);
 
-	void updateFormStatus(User user, String employee);
+//	void updateFormStatus(User user, String employee);
+
+	void updateFormStatus(User user, String employee, UUID formId);
 	
 	
 	

@@ -65,7 +65,7 @@ public class UserServiceImp implements UserService{
 	
 	
 	@Override
-	public void updateFormStatus(User user, String employee) {
+	public void updateFormStatus(User user, String employee, UUID formId) {
 		User loggedUser = user;
 		
 		if (userDao.getUser(employee).getUserType().equals(UserType.Employee) 
@@ -87,10 +87,11 @@ public class UserServiceImp implements UserService{
 	
 		//checking if grades are to standard
 	try {	
-		Form empForm = formDao.getFormbyEmployee(employee);
+		Form empForm = formDao.getFormbyId(formId);
 		String empGrade = empForm.getGrade();
 		gradeCheck(empGrade, empForm);
 		log.trace("Form status: "+ empForm.getStatus());
+		return;
 		}catch(Exception e) {
 			log.error("Failed to change status: " + e);
 		}
@@ -107,6 +108,7 @@ public class UserServiceImp implements UserService{
 			return; 
 		}
 		
+		log.trace("Employee: "+ employee);
 		User emp = userDao.getUser(employee);
 		Long currReimburse = emp.getReimbursement();
 		EventOp empEvent = eventDao.getEventbyTitleAndType(event, eventType);
@@ -131,9 +133,6 @@ public class UserServiceImp implements UserService{
 					+ "Please try again at a later date");
 			
 		}
-	
-		
-	
 		
 	}
 	
@@ -211,7 +210,7 @@ public class UserServiceImp implements UserService{
 	
 	public void gradeCheck(String grade, Form form) {
 		if (grade.equals("A") || grade.equals("B") ) {
-			log.trace("Calculating Tuition");
+			log.trace("Grade passed");
 			form.setStatus(Status.Approved);	
 		
 		}else {
@@ -226,10 +225,11 @@ public class UserServiceImp implements UserService{
 	public Long reimburseCalc(String eventType, Integer maxTuition, 
 			Long currReimburse, Integer empCost) {
 		
+		
 		Long newAmount = 0l;
-	
+		log.trace("Event Type: "+ eventType);
 		//certification
-		if(eventType == "certification") {
+		if(eventType.contains("certification") ) {
 			Integer coveredTuit = empCost * 1;
 			if (coveredTuit > maxTuition) {
 				coveredTuit = 1000;
@@ -237,7 +237,7 @@ public class UserServiceImp implements UserService{
 			newAmount += coveredTuit.longValue();
 			
 			//university_courses
-		}else if (eventType == "university_courses") {
+		}else if (eventType.contains("university_courses")) {
 			Double coveredTuit = empCost * .8;
 			if (coveredTuit > maxTuition) {
 				coveredTuit = 1000.0;
@@ -247,17 +247,20 @@ public class UserServiceImp implements UserService{
 			
 			
 			//seminar
-		}else if (eventType == "seminar") {
+		}else if (eventType.contains("seminar")) {
+			log.trace("Yo, seminar is working just fine kid");
+			log.trace("Cost: "+ empCost);
 			Double coveredTuit = empCost * .6;
 					if (coveredTuit > maxTuition) {
 							coveredTuit = 1000.0;		
 					}
-					
-					newAmount += coveredTuit.longValue();
+				log.trace("Covered: "+ coveredTuit);
+				newAmount += coveredTuit.longValue();
+				log.trace("New Amount"+newAmount);
 				
 				
 				//certification prep
-		}else if (eventType == "certification_prep") {
+		}else if (eventType.contains("certification_prep")) {
 			Double coveredTuit = empCost * .75;
 					if (coveredTuit > maxTuition) {
 						coveredTuit = 1000.0;
@@ -266,7 +269,7 @@ public class UserServiceImp implements UserService{
 			
 			
 			//technical_training
-		}else if (eventType == "technical_training") {
+		}else if (eventType.contains("technical_training")) {
 			Double coveredTuit = empCost * .9;
 			if (coveredTuit > maxTuition) {
 				coveredTuit = 1000.0;
@@ -276,7 +279,7 @@ public class UserServiceImp implements UserService{
 			
 			
 			//other
-		}else if (eventType == "other") {
+		}else if (eventType.contains("other") ) {
 				Double coveredTuit = empCost * .3;
 				if (coveredTuit > maxTuition) {
 					coveredTuit = 1000.0;
@@ -287,6 +290,7 @@ public class UserServiceImp implements UserService{
 		return newAmount;
 		
 	}
+
 
 
 }

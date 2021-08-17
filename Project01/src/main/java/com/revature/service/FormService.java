@@ -20,7 +20,8 @@ List<Form> getForms(User user);
 	
 	void updateStatus(User user, Status status);
 	
-	void deleteForm(User user);
+//	void deleteForm(User user);
+	void deleteForm(Form form);
 	
 	Form createAForm(Form userForm);
 	

@@ -60,9 +60,9 @@ public class FormServiceImp implements FormService {
 	}
 
 	@Override
-	public void deleteForm(User user) {
-		String username = user.getUsername();
-		Form form = formDao.getFormbyEmployee(username);
+	public void deleteForm(Form form) {
+//		String username = user.getUsername();
+//		Form form = formDao.getFormbyEmployee(username);
 		formDao.deleteForm(form);
 		
 	}

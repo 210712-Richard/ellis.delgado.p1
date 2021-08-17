@@ -138,9 +138,9 @@ public class UserContImp implements UserController{
 	public void updateFormStatus(Context ctx) {
 		User loggedUser = (User) ctx.sessionAttribute("loggedUser");
 		String employee = ctx.pathParam("employee");
-		;
+		UUID formId = UUID.fromString(ctx.pathParam("formId"));
 		
-		userSer.updateFormStatus(loggedUser, employee);
+		userSer.updateFormStatus(loggedUser, employee, formId);
 		
 	}
 
