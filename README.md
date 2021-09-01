@@ -22,6 +22,19 @@
  
  ## Getting Started
  
-  Simply clone the repository in your terminal with the `git clone <repository url>` command
+  * Clone the repository in your terminal with the `git clone <repository url>` command
+  * You need to establish a Keyspace connection on the AWS website
+      - Once you get your *AWS Username* and *AWS Password* from the IAM, you need to set those as            environmental variables
+  
+## Usage
+  * To start the application, go to the driver.java file and run the application
+  * Once the connection is established, use *Postman* to test any routes from the User Controller!
+
+## Contributors
+  * Ellis Delgado
+      - Github: Ellisd16
+
+## Liscense
+
   
  
