@@ -25,6 +25,7 @@
   * Clone the repository in your terminal with the `git clone <repository url>` command
   * You need to establish a Keyspace connection on the AWS website
       - Once you get your *AWS Username* and *AWS Password* from the IAM, you need to set those as            environmental variables
+      - Please do not push these to the repo! You will have to pay AWS alot of money if you do!
   
 ## Usage
   * To start the application, go to the driver.java file and run the application
