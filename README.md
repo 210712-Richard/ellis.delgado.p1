@@ -35,7 +35,7 @@
   * Ellis Delgado
       - Github: Ellisd16
 
-## Liscense
+## License
 
   
  
